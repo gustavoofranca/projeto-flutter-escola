@@ -1,0 +1,653 @@
+import 'package:flutter/material.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_text_styles.dart';
+import '../../constants/app_dimensions.dart';
+import 'dashboard_tab.dart';
+import 'classes_tab.dart';
+import 'messages_tab.dart';
+import 'calendar_tab.dart';
+import 'profile_tab.dart';
+
+/// Tela principal do aplicativo com navegação inferior
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _tabs = [
+    const DashboardTab(),
+    const ClassesTab(),
+    const MessagesTab(),
+    const CalendarTab(),
+    const ProfileTab(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _tabs,
+      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  /// Constrói a barra de navegação inferior
+  Widget _buildBottomNavigationBar() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.overlay,
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDimensions.md,
+            vertical: AppDimensions.sm,
+          ),
+          child: Row(
+            children: [
+              _buildNavItem(
+                index: 0,
+                icon: Icons.dashboard,
+                label: 'Início',
+              ),
+              _buildNavItem(
+                index: 1,
+                icon: Icons.class_,
+                label: 'Turmas',
+              ),
+              _buildNavItem(
+                index: 2,
+                icon: Icons.message,
+                label: 'Mensagens',
+              ),
+              _buildNavItem(
+                index: 3,
+                icon: Icons.calendar_today,
+                label: 'Calendário',
+              ),
+              _buildNavItem(
+                index: 4,
+                icon: Icons.person,
+                label: 'Perfil',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Constrói um item de navegação
+  Widget _buildNavItem({
+    required int index,
+    required IconData icon,
+    required String label,
+  }) {
+    final isSelected = _currentIndex == index;
+    
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.all(AppDimensions.sm),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? AppColors.primary.withOpacity(0.1)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+              ),
+              child: Icon(
+                icon,
+                size: AppDimensions.iconSizeMd,
+                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+              ),
+            ),
+            
+            const SizedBox(height: AppDimensions.xs),
+            
+            Text(
+              label,
+              style: AppTextStyles.caption.copyWith(
+                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Aba do Dashboard (Início)
+class DashboardTab extends StatelessWidget {
+  const DashboardTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            // AppBar personalizado
+            SliverAppBar(
+              expandedHeight: 120,
+              floating: false,
+              pinned: true,
+              backgroundColor: AppColors.surface,
+              elevation: 0,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: const BoxDecoration(
+                    gradient: AppColors.primaryGradient,
+                  ),
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppDimensions.lg),
+                      child: Row(
+                        children: [
+                          // Avatar do usuário
+                          CircleAvatar(
+                            radius: AppDimensions.avatarSizeMd / 2,
+                            backgroundColor: AppColors.background,
+                            child: Icon(
+                              Icons.person,
+                              size: AppDimensions.iconSizeLg,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          
+                          const SizedBox(width: AppDimensions.md),
+                          
+                          // Saudação
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Bom dia,',
+                                  style: AppTextStyles.bodyMedium.copyWith(
+                                    color: AppColors.background,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  'João Silva',
+                                  style: AppTextStyles.h5.copyWith(
+                                    color: AppColors.background,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          // Ícones de ação
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  // TODO: Implementar busca
+                                },
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: AppColors.background,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  // TODO: Implementar notificações
+                                },
+                                icon: const Icon(
+                                  Icons.notifications,
+                                  color: AppColors.background,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Conteúdo do dashboard
+            SliverPadding(
+              padding: const EdgeInsets.all(AppDimensions.lg),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  // Resumo rápido
+                  _buildQuickSummary(),
+                  
+                  const SizedBox(height: AppDimensions.xl),
+                  
+                  // Atividades recentes
+                  _buildRecentActivities(),
+                  
+                  const SizedBox(height: AppDimensions.xl),
+                  
+                  // Próximos eventos
+                  _buildUpcomingEvents(),
+                ]),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Constrói o resumo rápido
+  Widget _buildQuickSummary() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Resumo Rápido',
+          style: AppTextStyles.h4.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        
+        const SizedBox(height: AppDimensions.md),
+        
+        Row(
+          children: [
+            Expanded(
+              child: _buildSummaryCard(
+                icon: Icons.assignment,
+                title: 'Atividades',
+                value: '5',
+                subtitle: 'Pendentes',
+                color: AppColors.primary,
+              ),
+            ),
+            
+            const SizedBox(width: AppDimensions.md),
+            
+            Expanded(
+              child: _buildSummaryCard(
+                icon: Icons.grade,
+                title: 'Notas',
+                value: '8.5',
+                subtitle: 'Média',
+                color: AppColors.success,
+              ),
+            ),
+          ],
+        ),
+        
+        const SizedBox(height: AppDimensions.md),
+        
+        Row(
+          children: [
+            Expanded(
+              child: _buildSummaryCard(
+                icon: Icons.event,
+                title: 'Eventos',
+                value: '3',
+                subtitle: 'Esta semana',
+                color: AppColors.info,
+              ),
+            ),
+            
+            const SizedBox(width: AppDimensions.md),
+            
+            Expanded(
+              child: _buildSummaryCard(
+                icon: Icons.message,
+                title: 'Mensagens',
+                value: '12',
+                subtitle: 'Não lidas',
+                color: AppColors.warning,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Constrói um card de resumo
+  Widget _buildSummaryCard({
+    required IconData icon,
+    required String title,
+    required String value,
+    required String subtitle,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(AppDimensions.md),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+        boxShadow: AppDimensions.shadowSm,
+      ),
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            size: AppDimensions.iconSizeLg,
+            color: color,
+          ),
+          
+          const SizedBox(height: AppDimensions.sm),
+          
+          Text(
+            value,
+            style: AppTextStyles.h4.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          
+          Text(
+            title,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          
+          Text(
+            subtitle,
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Constrói as atividades recentes
+  Widget _buildRecentActivities() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Atividades Recentes',
+          style: AppTextStyles.h4.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        
+        const SizedBox(height: AppDimensions.md),
+        
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return _buildActivityItem(
+              title: 'Tarefa de Matemática',
+              subtitle: 'Entrega em 2 dias',
+              icon: Icons.assignment,
+              color: AppColors.primary,
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  /// Constrói um item de atividade
+  Widget _buildActivityItem({
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppDimensions.sm),
+      padding: const EdgeInsets.all(AppDimensions.md),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+        boxShadow: AppDimensions.shadowSm,
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(AppDimensions.sm),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+            ),
+            child: Icon(
+              icon,
+              size: AppDimensions.iconSizeMd,
+              color: color,
+            ),
+          ),
+          
+          const SizedBox(width: AppDimensions.md),
+          
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          Icon(
+            Icons.chevron_right,
+            color: AppColors.textSecondary,
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Constrói os próximos eventos
+  Widget _buildUpcomingEvents() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Próximos Eventos',
+          style: AppTextStyles.h4.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        
+        const SizedBox(height: AppDimensions.md),
+        
+        Container(
+          padding: const EdgeInsets.all(AppDimensions.lg),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+            boxShadow: AppDimensions.shadowSm,
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.event,
+                    color: AppColors.primary,
+                    size: AppDimensions.iconSizeMd,
+                  ),
+                  const SizedBox(width: AppDimensions.md),
+                  Expanded(
+                    child: Text(
+                      'Prova de História',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimensions.sm,
+                      vertical: AppDimensions.xs,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.warning.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+                    ),
+                    child: Text(
+                      'Amanhã',
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.warning,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: AppDimensions.md),
+              
+              Text(
+                'Revisar capítulos 5-8 do livro de História',
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Aba de Turmas
+class ClassesTab extends StatelessWidget {
+  const ClassesTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text('Minhas Turmas'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: const Center(
+        child: Text(
+          'Conteúdo das Turmas',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+/// Aba de Mensagens
+class MessagesTab extends StatelessWidget {
+  const MessagesTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text('Mensagens'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: const Center(
+        child: Text(
+          'Conteúdo das Mensagens',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+/// Aba do Calendário
+class CalendarTab extends StatelessWidget {
+  const CalendarTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text('Calendário'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: const Center(
+        child: Text(
+          'Conteúdo do Calendário',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+/// Aba do Perfil
+class ProfileTab extends StatelessWidget {
+  const ProfileTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text('Meu Perfil'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: const Center(
+        child: Text(
+          'Conteúdo do Perfil',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
