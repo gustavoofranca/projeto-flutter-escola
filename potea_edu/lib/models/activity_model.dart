@@ -194,26 +194,7 @@ extension ActivityTypeExtension on ActivityType {
     }
   }
 
-  IconData get icon {
-    switch (this) {
-      case ActivityType.assignment:
-        return Icons.assignment;
-      case ActivityType.exam:
-        return Icons.quiz;
-      case ActivityType.project:
-        return Icons.work;
-      case ActivityType.presentation:
-        return Icons.present_to_all;
-      case ActivityType.quiz:
-        return Icons.question_answer;
-      case ActivityType.homework:
-        return Icons.home_work;
-      case ActivityType.lab:
-        return Icons.science;
-      case ActivityType.other:
-        return Icons.more_horiz;
-    }
-  }
+  // Removido Flutter-specific IconData getter
 }
 
 extension ActivityStatusExtension on ActivityStatus {
@@ -234,21 +215,6 @@ extension ActivityStatusExtension on ActivityStatus {
     }
   }
 
-  Color get color {
-    switch (this) {
-      case ActivityStatus.pending:
-        return Colors.orange;
-      case ActivityStatus.inProgress:
-        return Colors.blue;
-      case ActivityStatus.submitted:
-        return Colors.purple;
-      case ActivityStatus.graded:
-        return Colors.green;
-      case ActivityStatus.completed:
-        return Colors.green;
-      case ActivityStatus.cancelled:
-        return Colors.red;
-    }
-  }
+  // Removido Flutter-specific Color getter
 }
 

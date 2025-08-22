@@ -19,7 +19,6 @@ class PoteaEduApp extends StatelessWidget {
           primary: Color(0xFF00FF7F), // Verde neon
           secondary: Color(0xFF00E676),
           surface: Color(0xFF121212),
-          background: Color(0xFF000000),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -78,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF00FF7F).withOpacity(0.3),
+                    color: const Color(0xFF00FF7F).withValues(alpha: 0.3),
                     blurRadius: 20,
                     spreadRadius: 5,
                   ),
@@ -429,7 +428,7 @@ class DashboardScreen extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: const Color(0xFF00FF7F).withOpacity(0.1),
+              color: const Color(0xFF00FF7F).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -457,7 +456,7 @@ class DashboardScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00FF7F).withOpacity(0.1),
+                        color: const Color(0xFF00FF7F).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -560,7 +559,7 @@ class ClassesScreen extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(icon, color: color, size: 30),
@@ -643,7 +642,7 @@ class MessagesScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: unread ? const Color(0xFF121212) : const Color(0xFF0A0A0A),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: unread ? const Color(0xFF00FF7F).withOpacity(0.3) : const Color(0xFF404040)),
+        border: Border.all(color: unread ? const Color(0xFF00FF7F).withValues(alpha: 0.3) : const Color(0xFF404040)),
       ),
       child: Row(
         children: [
@@ -778,7 +777,7 @@ class CalendarScreen extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: color, width: 2),
             ),

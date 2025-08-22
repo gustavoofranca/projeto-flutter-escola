@@ -46,7 +46,7 @@ class DashboardTab extends StatelessWidget {
                       Text(
                         'Aluno • 3º Ano do Ensino Médio',
                         style: AppTextStyles.body1.copyWith(
-                          color: AppColors.onPrimary.withOpacity(0.9),
+                          color: AppColors.onPrimary.withValues(alpha: 0.9),
                         ),
                       ),
                     ],
@@ -149,7 +149,7 @@ class DashboardTab extends StatelessWidget {
           Text(
             title,
             style: AppTextStyles.caption.copyWith(
-              color: AppColors.onSurface.withOpacity(0.7),
+              color: AppColors.onSurface.withValues(alpha: 0.7),
             ),
             textAlign: TextAlign.center,
           ),
@@ -221,7 +221,7 @@ class DashboardTab extends StatelessWidget {
                         Text(
                           'Entrega: ${activity['due']}',
                           style: AppTextStyles.caption.copyWith(
-                            color: AppColors.onSurface.withOpacity(0.6),
+                            color: AppColors.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
@@ -231,7 +231,7 @@ class DashboardTab extends StatelessWidget {
               ),
               Icon(
                 Icons.arrow_forward_ios,
-                color: AppColors.onSurface.withOpacity(0.4),
+                color: AppColors.onSurface.withValues(alpha: 0.4),
                 size: 16,
               ),
             ],
@@ -264,7 +264,7 @@ class DashboardTab extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
@@ -291,7 +291,7 @@ class DashboardTab extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
@@ -306,7 +306,7 @@ class DashboardTab extends StatelessWidget {
                         Text(
                           event['date']!,
                           style: AppTextStyles.caption.copyWith(
-                            color: AppColors.onSurface.withOpacity(0.6),
+                            color: AppColors.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],

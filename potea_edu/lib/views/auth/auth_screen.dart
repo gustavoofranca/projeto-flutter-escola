@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// Removido flutter_animate - usando animações nativas
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
@@ -70,7 +70,7 @@ class _AuthScreenState extends State<AuthScreen> {
             borderRadius: BorderRadius.circular(AppDimensions.radiusXxl),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.3),
+                color: AppColors.primary.withValues(alpha: 0.3),
                 blurRadius: 20,
                 spreadRadius: 5,
               ),
@@ -81,9 +81,6 @@ class _AuthScreenState extends State<AuthScreen> {
             size: 50,
             color: AppColors.background,
           ),
-        ).animate().scale(
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.elasticOut,
         ),
         
         const SizedBox(height: AppDimensions.lg),
@@ -95,8 +92,6 @@ class _AuthScreenState extends State<AuthScreen> {
             color: AppColors.primary,
             fontWeight: FontWeight.w800,
           ),
-        ).animate().fadeInUp(
-          delay: const Duration(milliseconds: 300),
         ),
         
         const SizedBox(height: AppDimensions.sm),
@@ -108,8 +103,6 @@ class _AuthScreenState extends State<AuthScreen> {
             color: AppColors.textSecondary,
             fontWeight: FontWeight.w500,
           ),
-        ).animate().fadeInUp(
-          delay: const Duration(milliseconds: 500),
         ),
       ],
     );
@@ -127,8 +120,6 @@ class _AuthScreenState extends State<AuthScreen> {
             // TODO: Implementar autenticação Google
             _showComingSoon();
           },
-        ).animate().fadeInLeft(
-          delay: const Duration(milliseconds: 700),
         ),
         
         const SizedBox(height: AppDimensions.md),
@@ -141,8 +132,6 @@ class _AuthScreenState extends State<AuthScreen> {
             // TODO: Implementar autenticação Apple
             _showComingSoon();
           },
-        ).animate().fadeInRight(
-          delay: const Duration(milliseconds: 900),
         ),
       ],
     );
@@ -187,8 +176,6 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
         const Expanded(child: Divider()),
       ],
-    ).animate().fadeIn(
-      delay: const Duration(milliseconds: 1100),
     );
   }
 
@@ -220,8 +207,6 @@ class _AuthScreenState extends State<AuthScreen> {
           style: AppTextStyles.buttonMedium,
         ),
       ),
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 1300),
     );
   }
 
@@ -264,8 +249,6 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
       ],
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 1500),
     );
   }
 

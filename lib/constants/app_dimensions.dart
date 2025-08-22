@@ -99,6 +99,9 @@ class AppDimensions {
   static const double avatarSizeLg = 80.0;
   static const double avatarSizeXl = 120.0;
   
+  // Padding da tela
+  static const EdgeInsets screenPadding = EdgeInsets.all(md);
+  
   // Breakpoints para responsividade
   static const double mobileBreakpoint = 600.0;
   static const double tabletBreakpoint = 900.0;

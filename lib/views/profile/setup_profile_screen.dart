@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// Removido flutter_animate - usando animações nativas
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
@@ -154,8 +154,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w700,
           ),
-        ).animate().fadeInDown(
-          delay: const Duration(milliseconds: 200),
         ),
         
         const SizedBox(height: AppDimensions.sm),
@@ -166,8 +164,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             color: AppColors.textSecondary,
             height: 1.5,
           ),
-        ).animate().fadeInDown(
-          delay: const Duration(milliseconds: 400),
         ),
       ],
     );
@@ -214,8 +210,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
           ),
         ],
       ),
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 600),
     );
   }
 
@@ -241,8 +235,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             }
             return null;
           },
-        ).animate().fadeInLeft(
-          delay: const Duration(milliseconds: 800),
         ),
         
         const SizedBox(height: AppDimensions.lg),
@@ -286,8 +278,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
               ],
             ),
           ),
-        ).animate().fadeInRight(
-          delay: const Duration(milliseconds: 1000),
         ),
         
         const SizedBox(height: AppDimensions.lg),
@@ -310,8 +300,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             }
             return null;
           },
-        ).animate().fadeInLeft(
-          delay: const Duration(milliseconds: 1200),
         ),
         
         const SizedBox(height: AppDimensions.lg),
@@ -341,8 +329,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             }
             return null;
           },
-        ).animate().fadeInRight(
-          delay: const Duration(milliseconds: 1400),
         ),
         
         const SizedBox(height: AppDimensions.lg),
@@ -351,10 +337,10 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
         Container(
           padding: const EdgeInsets.all(AppDimensions.md),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
             border: Border.all(
-              color: AppColors.primary.withOpacity(0.3),
+              color: AppColors.primary.withValues(alpha: 0.3),
             ),
           ),
           child: Row(
@@ -388,8 +374,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
               ),
             ],
           ),
-        ).animate().fadeInUp(
-          delay: const Duration(milliseconds: 1600),
         ),
       ],
     );
@@ -415,8 +399,6 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                 style: AppTextStyles.buttonMedium,
               ),
       ),
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 1800),
     );
   }
 

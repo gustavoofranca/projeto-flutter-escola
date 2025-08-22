@@ -24,6 +24,10 @@ class AppColors {
   static const Color warning = Color(0xFFFFA502);
   static const Color info = Color(0xFF3742FA);
   
+  // Cores adicionais
+  static const Color secondary = Color(0xFF00E676);
+  static const Color accent = Color(0xFF00BFA5);
+  
   // Bordas e divisores
   static const Color border = Color(0xFF404040);
   static const Color divider = Color(0xFF2D2D2D);

@@ -119,14 +119,7 @@ class GradeModel {
   /// Verifica se a nota é aprovatória (>= 60%)
   bool get isPassing => percentage >= 60;
 
-  /// Retorna a cor da nota baseada na porcentagem
-  Color get gradeColor {
-    if (percentage >= 90) return Colors.green;
-    if (percentage >= 80) return Colors.lightGreen;
-    if (percentage >= 70) return Colors.yellow;
-    if (percentage >= 60) return Colors.orange;
-    return Colors.red;
-  }
+
 
   @override
   String toString() {
@@ -166,18 +159,7 @@ extension GradeStatusExtension on GradeStatus {
     }
   }
 
-  Color get color {
-    switch (this) {
-      case GradeStatus.pending:
-        return Colors.orange;
-      case GradeStatus.graded:
-        return Colors.green;
-      case GradeStatus.reviewed:
-        return Colors.blue;
-      case GradeStatus.disputed:
-        return Colors.red;
-    }
-  }
+
 }
 
 /// Modelo para estatísticas de notas
@@ -215,13 +197,6 @@ class GradeStatistics {
     return 'Precisa Melhorar';
   }
 
-  /// Retorna a cor do status geral
-  Color get overallStatusColor {
-    if (averageScore >= 90) return Colors.green;
-    if (averageScore >= 80) return Colors.lightGreen;
-    if (averageScore >= 70) return Colors.yellow;
-    if (averageScore >= 60) return Colors.orange;
-    return Colors.red;
-  }
+
 }
 

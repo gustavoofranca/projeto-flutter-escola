@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// Import removido - não utilizado
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
@@ -133,7 +133,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                       Text(
                         'Complete suas informações para começar',
                         style: AppTextStyles.body1.copyWith(
-                          color: AppColors.onBackground.withOpacity(0.7),
+                          color: AppColors.onBackground.withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -165,7 +165,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                             Text(
                               'Tipo de Usuário',
                               style: AppTextStyles.caption.copyWith(
-                                color: AppColors.onSurface.withOpacity(0.6),
+                                color: AppColors.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                             Text(
@@ -196,7 +196,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                     children: [
                       Icon(
                         Icons.email,
-                        color: AppColors.onSurface.withOpacity(0.6),
+                        color: AppColors.onSurface.withValues(alpha: 0.6),
                         size: 24,
                       ),
                       const SizedBox(width: 12),
@@ -207,7 +207,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                             Text(
                               'E-mail',
                               style: AppTextStyles.caption.copyWith(
-                                color: AppColors.onSurface.withOpacity(0.6),
+                                color: AppColors.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                             Text(
@@ -230,7 +230,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Nome Completo',
-                    prefixIcon: Icon(Icons.person, color: AppColors.onSurface.withOpacity(0.6)),
+                    prefixIcon: Icon(Icons.person, color: AppColors.onSurface.withValues(alpha: 0.6)),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -259,7 +259,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                       children: [
                         Icon(
                           Icons.calendar_today,
-                          color: AppColors.onSurface.withOpacity(0.6),
+                          color: AppColors.onSurface.withValues(alpha: 0.6),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -269,7 +269,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                               Text(
                                 'Data de Nascimento',
                                 style: AppTextStyles.caption.copyWith(
-                                  color: AppColors.onSurface.withOpacity(0.6),
+                                  color: AppColors.onSurface.withValues(alpha: 0.6),
                                 ),
                               ),
                               Text(
@@ -279,7 +279,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                                 style: AppTextStyles.body1.copyWith(
                                   color: _selectedDate != null
                                       ? AppColors.onSurface
-                                      : AppColors.onSurface.withOpacity(0.5),
+                                      : AppColors.onSurface.withValues(alpha: 0.5),
                                 ),
                               ),
                             ],
@@ -298,7 +298,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: 'Telefone (opcional)',
-                    prefixIcon: Icon(Icons.phone, color: AppColors.onSurface.withOpacity(0.6)),
+                    prefixIcon: Icon(Icons.phone, color: AppColors.onSurface.withValues(alpha: 0.6)),
                   ),
                 ),
 
@@ -309,7 +309,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                   value: _selectedGender,
                   decoration: InputDecoration(
                     labelText: 'Gênero',
-                    prefixIcon: Icon(Icons.person_outline, color: AppColors.onSurface.withOpacity(0.6)),
+                    prefixIcon: Icon(Icons.person_outline, color: AppColors.onSurface.withValues(alpha: 0.6)),
                   ),
                   items: _genderOptions.map((String gender) {
                     return DropdownMenuItem<String>(

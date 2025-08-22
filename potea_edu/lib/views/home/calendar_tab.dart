@@ -21,20 +21,20 @@ class CalendarTab extends StatelessWidget {
             Icon(
               Icons.calendar_today,
               size: 80,
-              color: AppColors.onBackground.withOpacity(0.3),
+              color: AppColors.onBackground.withValues(alpha: 0.3),
             ),
             const SizedBox(height: 24),
             Text(
               'Tela de Calendário',
               style: AppTextStyles.h3.copyWith(
-                color: AppColors.onBackground.withOpacity(0.7),
+                color: AppColors.onBackground.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Funcionalidade em desenvolvimento',
               style: AppTextStyles.body1.copyWith(
-                color: AppColors.onBackground.withOpacity(0.5),
+                color: AppColors.onBackground.withValues(alpha: 0.5),
               ),
             ),
           ],

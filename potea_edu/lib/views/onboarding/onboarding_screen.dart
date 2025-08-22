@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// Removido flutter_animate - usando animações nativas
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
@@ -136,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
       ),
-    ).animate().fadeInDown(delay: const Duration(milliseconds: 200));
+    );
   }
 
   /// Constrói uma página individual
@@ -151,7 +151,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             width: 200,
             height: 200,
             decoration: BoxDecoration(
-              color: page.color.withOpacity(0.1),
+              color: page.color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppDimensions.radiusXxl),
             ),
             child: Icon(
@@ -159,9 +159,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               size: 100,
               color: page.color,
             ),
-          ).animate().scale(
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.elasticOut,
           ),
           
           const SizedBox(height: AppDimensions.xxl),
@@ -174,8 +171,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               fontWeight: FontWeight.w700,
             ),
             textAlign: TextAlign.center,
-          ).animate().fadeInUp(
-            delay: const Duration(milliseconds: 400),
           ),
           
           const SizedBox(height: AppDimensions.lg),
@@ -188,8 +183,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               height: 1.5,
             ),
             textAlign: TextAlign.center,
-          ).animate().fadeInUp(
-            delay: const Duration(milliseconds: 600),
           ),
         ],
       ),
@@ -231,8 +224,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ],
       ),
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 800),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// Removido flutter_animate - usando animações nativas
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
@@ -145,8 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w700,
           ),
-        ).animate().fadeInDown(
-          delay: const Duration(milliseconds: 200),
         ),
         
         const SizedBox(height: AppDimensions.sm),
@@ -157,8 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
             color: AppColors.textSecondary,
             height: 1.5,
           ),
-        ).animate().fadeInDown(
-          delay: const Duration(milliseconds: 400),
         ),
       ],
     );
@@ -186,8 +182,6 @@ class _LoginScreenState extends State<LoginScreen> {
             }
             return null;
           },
-        ).animate().fadeInLeft(
-          delay: const Duration(milliseconds: 600),
         ),
         
         const SizedBox(height: AppDimensions.lg),
@@ -220,8 +214,6 @@ class _LoginScreenState extends State<LoginScreen> {
             }
             return null;
           },
-        ).animate().fadeInRight(
-          delay: const Duration(milliseconds: 800),
         ),
         
         const SizedBox(height: AppDimensions.md),
@@ -245,8 +237,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ],
-        ).animate().fadeInUp(
-          delay: const Duration(milliseconds: 1000),
         ),
       ],
     );
@@ -272,8 +262,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: AppTextStyles.buttonMedium,
               ),
       ),
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 1200),
     );
   }
 
@@ -289,8 +277,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 1400),
     );
   }
 
@@ -310,8 +296,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         const Expanded(child: Divider()),
       ],
-    ).animate().fadeIn(
-      delay: const Duration(milliseconds: 1600),
     );
   }
 
@@ -351,8 +335,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ],
-    ).animate().fadeInUp(
-      delay: const Duration(milliseconds: 1800),
     );
   }
 

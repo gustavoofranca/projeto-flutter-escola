@@ -208,47 +208,9 @@ extension NotificationTypeExtension on NotificationType {
     }
   }
 
-  IconData get icon {
-    switch (this) {
-      case NotificationType.general:
-        return Icons.notifications;
-      case NotificationType.activity:
-        return Icons.assignment;
-      case NotificationType.grade:
-        return Icons.grade;
-      case NotificationType.announcement:
-        return Icons.announcement;
-      case NotificationType.reminder:
-        return Icons.schedule;
-      case NotificationType.event:
-        return Icons.event;
-      case NotificationType.message:
-        return Icons.message;
-      case NotificationType.system:
-        return Icons.info;
-    }
-  }
 
-  Color get color {
-    switch (this) {
-      case NotificationType.general:
-        return Colors.blue;
-      case NotificationType.activity:
-        return Colors.orange;
-      case NotificationType.grade:
-        return Colors.green;
-      case NotificationType.announcement:
-        return Colors.purple;
-      case NotificationType.reminder:
-        return Colors.amber;
-      case NotificationType.event:
-        return Colors.indigo;
-      case NotificationType.message:
-        return Colors.teal;
-      case NotificationType.system:
-        return Colors.grey;
-    }
-  }
+
+
 }
 
 extension NotificationPriorityExtension on NotificationPriority {
@@ -265,31 +227,9 @@ extension NotificationPriorityExtension on NotificationPriority {
     }
   }
 
-  Color get color {
-    switch (this) {
-      case NotificationPriority.low:
-        return Colors.grey;
-      case NotificationPriority.normal:
-        return Colors.blue;
-      case NotificationPriority.high:
-        return Colors.orange;
-      case NotificationPriority.urgent:
-        return Colors.red;
-    }
-  }
 
-  IconData get icon {
-    switch (this) {
-      case NotificationPriority.low:
-        return Icons.priority_low;
-      case NotificationPriority.normal:
-        return Icons.priority_normal;
-      case NotificationPriority.high:
-        return Icons.priority_high;
-      case NotificationPriority.urgent:
-        return Icons.warning;
-    }
-  }
+
+
 }
 
 /// Modelo de evento para o calendário
@@ -430,46 +370,6 @@ extension EventTypeExtension on EventType {
     }
   }
 
-  IconData get icon {
-    switch (this) {
-      case EventType.general:
-        return Icons.event;
-      case EventType.exam:
-        return Icons.quiz;
-      case EventType.assignment:
-        return Icons.assignment;
-      case EventType.meeting:
-        return Icons.meeting_room;
-      case EventType.holiday:
-        return Icons.beach_access;
-      case EventType.activity:
-        return Icons.sports_soccer;
-      case EventType.presentation:
-        return Icons.present_to_all;
-      case EventType.other:
-        return Icons.more_horiz;
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case EventType.general:
-        return Colors.blue;
-      case EventType.exam:
-        return Colors.red;
-      case EventType.assignment:
-        return Colors.orange;
-      case EventType.meeting:
-        return Colors.purple;
-      case EventType.holiday:
-        return Colors.green;
-      case EventType.activity:
-        return Colors.teal;
-      case EventType.presentation:
-        return Colors.indigo;
-      case EventType.other:
-        return Colors.grey;
-    }
-  }
+  // Removido Flutter-specific IconData e Color getters
 }
 

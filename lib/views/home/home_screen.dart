@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
-import 'dashboard_tab.dart';
-import 'classes_tab.dart';
-import 'messages_tab.dart';
-import 'calendar_tab.dart';
-import 'profile_tab.dart';
+// Imports removidos - não utilizados
 
 /// Tela principal do aplicativo com navegação inferior
 class HomeScreen extends StatefulWidget {
@@ -115,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(AppDimensions.sm),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? AppColors.primary.withOpacity(0.1)
+                    ? AppColors.primary.withValues(alpha: 0.1)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
               ),
@@ -440,7 +436,7 @@ class DashboardTab extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(AppDimensions.sm),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
             ),
             child: Icon(
@@ -529,7 +525,7 @@ class DashboardTab extends StatelessWidget {
                       vertical: AppDimensions.xs,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.warning.withOpacity(0.1),
+                      color: AppColors.warning.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                     ),
                     child: Text(
