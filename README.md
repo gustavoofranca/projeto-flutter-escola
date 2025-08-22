@@ -10,7 +10,7 @@ Um aplicativo Flutter moderno e elegante para gerenciamento educacional, desenvo
 - **🔐 Autenticação**: Sistema de login e cadastro completo
 - **👥 Múltiplos Usuários**: Suporte para alunos e professores
 - **📚 Gestão Educacional**: Turmas, matérias, atividades e notas
-- **💬 Chat Interno**: Sistema de mensagens entre usuários
+- **📢 Avisos**: Sistema de comunicados dos professores
 - **📅 Calendário**: Organização de eventos e atividades
 - **🔔 Notificações**: Sistema de avisos e lembretes
 
@@ -18,9 +18,9 @@ Um aplicativo Flutter moderno e elegante para gerenciamento educacional, desenvo
 
 - **Flutter**: Framework principal para desenvolvimento multiplataforma
 - **Riverpod**: Gerenciamento de estado moderno e eficiente
-- **Firebase**: Backend e serviços em nuvem (configuração pendente)
+- **Riverpod**: Gerenciamento de estado moderno e eficiente
 - **Google Fonts**: Tipografia personalizada (Inter)
-- **Flutter Animate**: Animações suaves e responsivas
+- **Animações Nativas**: Transições e animações fluidas do Flutter
 
 ## 📱 Telas Implementadas
 
@@ -36,7 +36,7 @@ Um aplicativo Flutter moderno e elegante para gerenciamento educacional, desenvo
 
 - **Dashboard**: Visão geral com resumos e atividades
 - **Turmas**: Gerenciamento de classes (estrutura básica)
-- **Mensagens**: Sistema de chat (estrutura básica)
+- **Avisos**: Sistema de comunicados (estrutura básica)
 - **Calendário**: Organização de eventos (estrutura básica)
 - **Perfil**: Configurações do usuário (estrutura básica)
 
@@ -104,7 +104,7 @@ lib/
 │   ├── class_model.dart      # Turma e Matéria
 │   ├── activity_model.dart   # Atividade
 │   ├── grade_model.dart      # Nota
-│   ├── message_model.dart    # Mensagem
+│   ├── announcement_model.dart # Aviso
 │   └── notification_model.dart # Notificação
 ├── views/              # Telas do aplicativo
 │   ├── splash_screen.dart    # Splash
@@ -150,9 +150,9 @@ Para integrar com Firebase, siga estes passos:
 
 ### 💬 Comunicação
 
-- [ ] Chat em tempo real
+- [ ] Sistema de avisos em tempo real
 - [ ] Notificações push
-- [ ] Envio de mensagens
+- [ ] Sistema de avisos em tempo real
 
 ### 📅 Organização
 
@@ -164,7 +164,7 @@ Para integrar com Firebase, siga estes passos:
 
 1. **Configurar Firebase** e integrar serviços
 2. **Implementar CRUDs** para todas as entidades
-3. **Adicionar chat** em tempo real
+3. **Implementar sistema de avisos** em tempo real
 4. **Implementar notificações** push
 5. **Testes** unitários e de integração
 6. **Deploy** para produção
@@ -197,4 +197,3 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 ---
 
 **Potea Edu** - Transformando a educação através da tecnologia 🚀
-

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
-// Imports removidos - não utilizados
+import 'announcements_tab.dart';
 
 /// Tela principal do aplicativo com navegação inferior
 class HomeScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _tabs = [
     const DashboardTab(),
     const ClassesTab(),
-    const MessagesTab(),
+    const AnnouncementsTab(),
     const CalendarTab(),
     const ProfileTab(),
   ];
@@ -68,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               _buildNavItem(
                 index: 2,
-                icon: Icons.message,
-                label: 'Mensagens',
+                icon: Icons.announcement,
+                label: 'Avisos',
               ),
               _buildNavItem(
                 index: 3,

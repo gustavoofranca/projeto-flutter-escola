@@ -95,8 +95,8 @@ class DashboardTab extends StatelessWidget {
             const SizedBox(width: AppDimensions.md),
             Expanded(
               child: _buildSummaryCard(
-                icon: Icons.message,
-                title: 'Mensagens',
+                                 icon: Icons.announcement,
+                                 title: 'Avisos',
                 value: '5',
                 color: AppColors.secondary,
               ),

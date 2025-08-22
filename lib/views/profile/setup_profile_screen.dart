@@ -51,7 +51,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
         _isLoading = false;
       });
 
-      // TODO: Salvar dados do perfil no Firebase
+             // TODO: Salvar dados do perfil
       _navigateToHome();
     }
   }

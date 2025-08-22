@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// Import removido - não utilizado
 import '../constants/app_colors.dart';
 import '../constants/app_text_styles.dart';
 import '../constants/app_dimensions.dart';
@@ -139,9 +139,6 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         );
       },
-    ).animate().fadeIn(
-      duration: const Duration(milliseconds: 800),
-      delay: const Duration(milliseconds: 300),
     );
   }
 
@@ -184,9 +181,6 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         );
       },
-    ).animate().fadeIn(
-      duration: const Duration(milliseconds: 600),
-      delay: const Duration(milliseconds: 800),
     );
   }
 
@@ -217,9 +211,6 @@ class _SplashScreenState extends State<SplashScreen>
           ],
         );
       },
-    ).animate().fadeIn(
-      duration: const Duration(milliseconds: 400),
-      delay: const Duration(milliseconds: 1200),
     );
   }
 }

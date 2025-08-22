@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = false;
       });
 
-      // TODO: Implementar autenticação real com Firebase
+             // TODO: Implementar autenticação real
       _navigateToHome();
     }
   }

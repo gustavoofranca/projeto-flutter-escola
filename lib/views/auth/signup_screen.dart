@@ -57,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _isLoading = false;
       });
 
-      // TODO: Implementar cadastro real com Firebase
+             // TODO: Implementar cadastro real
       _navigateToSetupProfile();
     }
   }
