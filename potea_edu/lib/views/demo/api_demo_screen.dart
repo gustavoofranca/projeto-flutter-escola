@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
-import '../../services/api_service.dart';
 import '../../components/atoms/custom_typography.dart';
-import '../../components/atoms/custom_button.dart';
 import '../../components/molecules/info_card.dart';
-import '../../components/molecules/section_title.dart';
+import '../../providers/auth_provider.dart';
 
 /// Tela de demonstração do consumo de API com FutureBuilder
 class ApiDemoScreen extends StatefulWidget {
@@ -43,6 +42,64 @@ class _ApiDemoScreenState extends State<ApiDemoScreen>
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    
+    // Verifica se o usuário tem permissão para acessar a demo
+    if (authProvider.isStudent) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppDimensions.xl),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.lock,
+                  size: 64,
+                  color: AppColors.textSecondary,
+                ),
+                const SizedBox(height: AppDimensions.lg),
+                const Text(
+                  'Acesso Restrito',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: AppDimensions.md),
+                const Text(
+                  'Esta funcionalidade de demonstração está disponível apenas para professores e administradores.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: AppDimensions.xl),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.background,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimensions.xl,
+                      vertical: AppDimensions.md,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+                    ),
+                  ),
+                  child: const Text('Voltar'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(

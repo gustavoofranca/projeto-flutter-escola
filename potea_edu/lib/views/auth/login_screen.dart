@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-// Removido flutter_animate - usando animações nativas
+import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
+import '../../providers/auth_provider.dart';
+import '../../components/atoms/custom_button.dart';
+import '../../components/atoms/custom_text_field.dart';
+import '../../components/atoms/custom_typography.dart';
+import 'signup_screen.dart';
 import '../home/home_screen.dart';
 
 /// Tela de login do aplicativo

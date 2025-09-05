@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
-import '../../models/book_model.dart';
-import '../../services/google_books_service.dart';
-import '../../services/curated_books_service.dart';
+import '../../providers/curated_books_provider.dart';
 import '../../components/atoms/custom_typography.dart';
-import '../../components/molecules/section_title.dart';
-import '../../providers/book_download_provider.dart';
+import '../../components/molecules/info_card.dart';
 import 'book_details_screen.dart';
 import 'book_reader_screen.dart';
 

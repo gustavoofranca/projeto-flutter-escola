@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
@@ -7,6 +8,9 @@ import 'announcements_tab.dart';
 import 'calendar_tab.dart';
 import 'materials_tab.dart';
 import 'profile_tab.dart';
+import '../demo/api_demo_screen.dart';
+import '../demo/form_demo_screen.dart';
+import '../../providers/auth_provider.dart';
 
 /// Tela principal do aplicativo com navegação inferior
 class HomeScreen extends StatefulWidget {
@@ -19,29 +23,41 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _tabs = [
-    const DashboardTab(),
-    const ClassesTab(),
-    const AnnouncementsTab(),
-    const CalendarTab(),
-    const MaterialsTab(),
-    const ProfileTab(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final isStudent = authProvider.isStudent;
+    
+    // Tabs que são visíveis para todos os usuários
+    final List<Widget> allTabs = [
+      const DashboardTab(),
+      const ClassesTab(),
+      const AnnouncementsTab(),
+      const CalendarTab(),
+      const MaterialsTab(),
+      const ProfileTab(),
+    ];
+    
+    // Adiciona a aba de demos apenas para professores e administradores
+    if (!isStudent) {
+      allTabs.add(const DemosTab());
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: IndexedStack(
         index: _currentIndex,
-        children: _tabs,
+        children: allTabs,
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      bottomNavigationBar: _buildBottomNavigationBar(isStudent),
     );
   }
 
   /// Constrói a barra de navegação inferior
-  Widget _buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar(bool isStudent) {
+    // Número de itens na barra de navegação
+    final int itemCount = isStudent ? 6 : 7;
+    
     return Container(
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -91,6 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icons.person,
                 label: 'Perfil',
               ),
+              if (!isStudent)
+                _buildNavItem(
+                  index: 6,
+                  icon: Icons.science,
+                  label: 'Demos',
+                ),
             ],
           ),
         ),
@@ -565,5 +587,107 @@ class DashboardTab extends StatelessWidget {
   }
 }
 
+/// Aba de Demonstrations (Demos)
+class DemosTab extends StatelessWidget {
+  const DemosTab({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    
+    // Verifica se o usuário tem permissão para acessar a aba de demos
+    if (authProvider.isStudent) {
+      // Se for estudante, mostra uma mensagem de acesso negado
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppDimensions.xl),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.lock,
+                  size: 64,
+                  color: AppColors.textSecondary,
+                ),
+                const SizedBox(height: AppDimensions.lg),
+                const Text(
+                  'Acesso Restrito',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: AppDimensions.md),
+                const Text(
+                  'Esta funcionalidade está disponível apenas para professores e administradores.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: AppDimensions.xl),
+                ElevatedButton(
+                  onPressed: () {
+                    // Volta para a aba de perfil ou dashboard
+                    final state = context.findAncestorStateOfType<_HomeScreenState>();
+                    // We can't directly access the state, so we'll just show a message
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.background,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimensions.xl,
+                      vertical: AppDimensions.md,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+                    ),
+                  ),
+                  child: const Text('Voltar'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
+    // Se for professor ou administrador, mostra as demos normalmente
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          title: const Text(
+            'Demonstrações',
+            style: TextStyle(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: AppColors.surface,
+          elevation: 0,
+          bottom: const TabBar(
+            indicatorColor: AppColors.primary,
+            labelColor: AppColors.primary,
+            unselectedLabelColor: AppColors.textSecondary,
+            tabs: [
+              Tab(text: 'API Demo', icon: Icon(Icons.api)),
+              Tab(text: 'Formulário', icon: Icon(Icons.edit)),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            ApiDemoScreen(),
+            FormDemoScreen(),
+          ],
+        ),
+      ),
+    );
+  }
+}

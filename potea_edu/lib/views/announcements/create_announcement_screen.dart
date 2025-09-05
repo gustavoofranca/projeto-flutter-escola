@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
-import '../../providers/auth_provider.dart';
 import '../../providers/announcement_provider.dart';
 import '../../models/announcement_model.dart';
 import '../../components/atoms/custom_typography.dart';
 import '../../components/atoms/custom_button.dart';
+import '../../components/atoms/custom_text_field.dart';
 import '../../components/molecules/section_title.dart';
 
 class CreateAnnouncementScreen extends StatefulWidget {
@@ -143,7 +143,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
       ),
       child: Column(
         children: [
-          TextFormField(
+          CustomTextField(
             controller: _titleController,
             decoration: InputDecoration(
               labelText: 'Título do Aviso',
@@ -170,7 +170,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
           
           const SizedBox(height: AppDimensions.lg),
           
-          TextFormField(
+          CustomTextField(
             controller: _contentController,
             maxLines: 6,
             decoration: InputDecoration(

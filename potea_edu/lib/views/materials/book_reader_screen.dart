@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
-import '../../models/book_model.dart';
 import '../../providers/book_download_provider.dart';
+import '../../services/book_download_service.dart';
 import '../../components/atoms/custom_typography.dart';
 
 /// Tela de leitura de livros com funcionalidades básicas de leitor
@@ -182,43 +181,14 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
   }
 
   Future<void> _downloadBook(BuildContext context) async {
-    final downloadProvider = Provider.of<BookDownloadProvider>(
-      context,
-      listen: false,
+    // Funcionalidade de download removida
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Funcionalidade de download removida. Use o botão "Acessar Livro" para ler o conteúdo.'),
+        backgroundColor: AppColors.warning,
+        behavior: SnackBarBehavior.floating,
+      ),
     );
-
-    // Se já está baixado, mostra mensagem
-    if (downloadProvider.isBookDownloaded(widget.book.id)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Livro já baixado!'),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-      return;
-    }
-
-    // Inicia o download
-    final result = await downloadProvider.downloadBook(widget.book);
-
-    if (result) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Livro baixado com sucesso!'),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Erro ao baixar o livro'),
-          backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-    }
   }
 
   Color get _backgroundColor =>
@@ -468,83 +438,6 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                   activeColor: AppColors.primary,
                 ),
               ],
-            ),
-
-            const SizedBox(height: AppDimensions.md),
-
-            // Download PDF button
-            Consumer<BookDownloadProvider>(
-              builder: (context, downloadProvider, child) {
-                final isDownloaded = downloadProvider.isBookDownloaded(
-                  widget.book.id,
-                );
-                final downloadProgress = downloadProvider.getDownloadProgress(
-                  widget.book.id,
-                );
-
-                return ElevatedButton(
-                  onPressed: downloadProgress != null
-                      ? null
-                      : () {
-                          Navigator.of(context).pop();
-                          _downloadBook(context);
-                        },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isDownloaded
-                        ? AppColors.success
-                        : AppColors.secondary,
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimensions.md,
-                      vertical: AppDimensions.sm,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusSm,
-                      ),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: downloadProgress != null
-                      ? Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              height: 16,
-                              width: 16,
-                              child: CircularProgressIndicator(
-                                value: downloadProgress,
-                                strokeWidth: 2,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(width: AppDimensions.sm),
-                            CustomTypography.bodyMedium(
-                              text:
-                                  'Baixando... ${(downloadProgress * 100).toInt()}%',
-                              color: Colors.black,
-                            ),
-                          ],
-                        )
-                      : Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              isDownloaded
-                                  ? Icons.download_done
-                                  : Icons.download,
-                              size: 18,
-                              color: Colors.black,
-                            ),
-                            const SizedBox(width: AppDimensions.sm),
-                            CustomTypography.bodyMedium(
-                              text: isDownloaded ? 'PDF Baixado' : 'Baixar PDF',
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                );
-              },
             ),
           ],
         ),

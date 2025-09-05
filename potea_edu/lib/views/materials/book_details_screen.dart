@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
-import '../../models/book_model.dart';
 import '../../providers/book_download_provider.dart';
+import '../../services/book_download_service.dart';
 import '../../components/atoms/custom_typography.dart';
-import '../../components/atoms/custom_button.dart';
+import '../../components/molecules/info_card.dart';
+import 'book_reader_screen.dart';
 
 /// Tela de detalhes do livro com informações completas
 class BookDetailsScreen extends StatelessWidget {
@@ -288,17 +287,12 @@ class BookDetailsScreen extends StatelessWidget {
   Widget _buildActionButtons(BuildContext context) {
     return Column(
       children: [
-        // Download button
-        _buildDownloadButton(context),
-
-        const SizedBox(height: AppDimensions.md),
-
         if (book.previewLink != null)
           SizedBox(
             width: double.infinity,
             child: CustomButton(
-              text: 'Visualizar Prévia',
-              icon: Icons.preview,
+              text: 'Acessar Livro',
+              icon: Icons.book,
               onPressed: () => _openPreview(context),
             ),
           ),
@@ -336,70 +330,8 @@ class BookDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildDownloadButton(BuildContext context) {
-    return Consumer<BookDownloadProvider>(
-      builder: (context, downloadProvider, child) {
-        final isDownloaded = downloadProvider.isBookDownloaded(book.id);
-        final downloadProgress = downloadProvider.getDownloadProgress(book.id);
-
-        return SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: downloadProgress != null
-                ? null
-                : () => _downloadBook(context, downloadProvider),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: isDownloaded
-                  ? AppColors.success
-                  : AppColors.secondary,
-              foregroundColor: Colors.black,
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.lg,
-                vertical: AppDimensions.md,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              ),
-              elevation: 0,
-            ),
-            child: downloadProgress != null
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          value: downloadProgress,
-                          strokeWidth: 2,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(width: AppDimensions.sm),
-                      CustomTypography.bodyMedium(
-                        text:
-                            'Baixando... ${(downloadProgress * 100).toInt()}%',
-                        color: Colors.black,
-                      ),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        isDownloaded ? Icons.download_done : Icons.download,
-                        color: Colors.black,
-                      ),
-                      const SizedBox(width: AppDimensions.sm),
-                      CustomTypography.bodyMedium(
-                        text: isDownloaded ? 'PDF Baixado' : 'Baixar PDF',
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
-          ),
-        );
-      },
-    );
+    // Removido o botão de download
+    return const SizedBox.shrink();
   }
 
   Widget _buildBookPlaceholder() {
@@ -458,8 +390,12 @@ class BookDetailsScreen extends StatelessWidget {
 
     if (result) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Livro baixado com sucesso!'),
+        SnackBar(
+          content: Text(
+            book.previewLink != null && book.previewLink!.contains('books.google')
+                ? 'Informações do livro salvas como PDF! Para ler o conteúdo completo, use o botão "Visualizar Prévia".'
+                : 'Livro baixado com sucesso!'
+          ),
           backgroundColor: AppColors.success,
           behavior: SnackBarBehavior.floating,
         ),
@@ -467,7 +403,7 @@ class BookDetailsScreen extends StatelessWidget {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Erro ao baixar o livro'),
+          content: Text('Erro ao baixar o livro. Verifique sua conexão e tente novamente.'),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
-import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/user_model.dart';
@@ -161,7 +160,7 @@ class _DashboardTabState extends State<DashboardTab> {
                           children: [
                             CustomTypography.bodyMedium(
                               text: _getGreeting(),
-                              color: AppColors.background.withOpacity(0.9),
+                              color: AppColors.background.withValues(alpha: 0.9),
                             ),
                             const SizedBox(height: 4),
                             CustomTypography.h4(
@@ -171,7 +170,7 @@ class _DashboardTabState extends State<DashboardTab> {
                             const SizedBox(height: 4),
                             CustomTypography.bodyMedium(
                               text: '${user.userType.displayName} • Potea Edu',
-                              color: AppColors.background.withOpacity(0.8),
+                              color: AppColors.background.withValues(alpha: 0.8),
                             ),
                           ],
                         ),
@@ -187,7 +186,7 @@ class _DashboardTabState extends State<DashboardTab> {
                         },
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundColor: AppColors.background.withOpacity(0.2),
+                          backgroundColor: AppColors.background.withValues(alpha: 0.2),
                           child: Icon(
                             _getUserIcon(user.userType),
                             size: 30,
@@ -291,10 +290,10 @@ class _DashboardTabState extends State<DashboardTab> {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -460,10 +459,10 @@ class _DashboardTabState extends State<DashboardTab> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: action['color'].withOpacity(0.1),
+                  color: action['color'].withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
                   border: Border.all(
-                    color: action['color'].withOpacity(0.3),
+                    color: action['color'].withValues(alpha: 0.3),
                   ),
                 ),
                 child: Column(
@@ -512,7 +511,7 @@ class _DashboardTabState extends State<DashboardTab> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
@@ -536,7 +535,7 @@ class _DashboardTabState extends State<DashboardTab> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: CustomTypography.caption(
@@ -688,7 +687,7 @@ class _DashboardTabState extends State<DashboardTab> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: CustomTypography.bodySmall(

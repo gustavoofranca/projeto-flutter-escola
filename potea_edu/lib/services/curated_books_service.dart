@@ -1,5 +1,3 @@
-import '../models/book_model.dart';
-
 /// Serviço para livros educacionais curados/pré-selecionados
 class CuratedBooksService {
   /// Lista de livros educacionais brasileiros comumente usados em escolas

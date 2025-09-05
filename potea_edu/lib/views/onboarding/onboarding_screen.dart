@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// Removido flutter_animate - usando animações nativas
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';

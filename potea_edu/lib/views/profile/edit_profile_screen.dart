@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
 import '../../providers/auth_provider.dart';
-import '../../models/user_model.dart';
-import '../../services/user_service.dart';
-import '../../components/atoms/custom_typography.dart';
 import '../../components/atoms/custom_button.dart';
+import '../../components/atoms/custom_text_field.dart';
+import '../../components/atoms/custom_typography.dart';
 import '../../components/molecules/section_title.dart';
 
 class EditProfileScreen extends StatefulWidget {
