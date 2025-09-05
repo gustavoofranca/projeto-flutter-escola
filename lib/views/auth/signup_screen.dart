@@ -57,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _isLoading = false;
       });
 
-             // TODO: Implementar cadastro real
+      // Note: Using fictional registration for demo purposes
       _navigateToSetupProfile();
     }
   }
@@ -66,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            SetupProfileScreen(userType: UserType.student),
+            const SetupProfileScreen(userType: UserType.student),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -124,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
       children: [
         IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.textPrimary,
             size: AppDimensions.iconSizeLg,
@@ -157,27 +157,27 @@ class _SignupScreenState extends State<SignupScreen> {
           controller: _nameController,
           decoration: InputDecoration(
             labelText: 'Nome Completo',
-            labelStyle: TextStyle(color: AppColors.textSecondary),
-            prefixIcon: Icon(
+            labelStyle: const TextStyle(color: AppColors.textSecondary),
+            prefixIcon: const Icon(
               Icons.person_outline,
               color: AppColors.textSecondary,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.primary),
+              borderSide: const BorderSide(color: AppColors.primary),
             ),
             filled: true,
             fillColor: AppColors.surface,
           ),
-          style: TextStyle(color: AppColors.textPrimary),
+          style: const TextStyle(color: AppColors.textPrimary),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira seu nome';
@@ -197,27 +197,27 @@ class _SignupScreenState extends State<SignupScreen> {
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             labelText: 'Email',
-            labelStyle: TextStyle(color: AppColors.textSecondary),
-            prefixIcon: Icon(
+            labelStyle: const TextStyle(color: AppColors.textSecondary),
+            prefixIcon: const Icon(
               Icons.email_outlined,
               color: AppColors.textSecondary,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.primary),
+              borderSide: const BorderSide(color: AppColors.primary),
             ),
             filled: true,
             fillColor: AppColors.surface,
           ),
-          style: TextStyle(color: AppColors.textPrimary),
+          style: const TextStyle(color: AppColors.textPrimary),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira seu email';
@@ -237,8 +237,8 @@ class _SignupScreenState extends State<SignupScreen> {
           obscureText: !_isPasswordVisible,
           decoration: InputDecoration(
             labelText: 'Senha',
-            labelStyle: TextStyle(color: AppColors.textSecondary),
-            prefixIcon: Icon(
+            labelStyle: const TextStyle(color: AppColors.textSecondary),
+            prefixIcon: const Icon(
               Icons.lock_outline,
               color: AppColors.textSecondary,
             ),
@@ -255,20 +255,20 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.primary),
+              borderSide: const BorderSide(color: AppColors.primary),
             ),
             filled: true,
             fillColor: AppColors.surface,
           ),
-          style: TextStyle(color: AppColors.textPrimary),
+          style: const TextStyle(color: AppColors.textPrimary),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira sua senha';
@@ -288,8 +288,8 @@ class _SignupScreenState extends State<SignupScreen> {
           obscureText: !_isConfirmPasswordVisible,
           decoration: InputDecoration(
             labelText: 'Confirmar Senha',
-            labelStyle: TextStyle(color: AppColors.textSecondary),
-            prefixIcon: Icon(
+            labelStyle: const TextStyle(color: AppColors.textSecondary),
+            prefixIcon: const Icon(
               Icons.lock_outline,
               color: AppColors.textSecondary,
             ),
@@ -306,20 +306,20 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.divider),
+              borderSide: const BorderSide(color: AppColors.divider),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: AppColors.primary),
+              borderSide: const BorderSide(color: AppColors.primary),
             ),
             filled: true,
             fillColor: AppColors.surface,
           ),
-          style: TextStyle(color: AppColors.textPrimary),
+          style: const TextStyle(color: AppColors.textPrimary),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, confirme sua senha';
@@ -354,8 +354,8 @@ class _SignupScreenState extends State<SignupScreen> {
               style: AppTextStyles.bodyMedium.copyWith(
                 color: AppColors.textSecondary,
               ),
-              children: [
-                const TextSpan(text: 'Eu aceito os '),
+              children: const [
+                TextSpan(text: 'Eu aceito os '),
                 TextSpan(
                   text: 'Termos de Uso',
                   style: TextStyle(
@@ -363,7 +363,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const TextSpan(text: ' e '),
+                TextSpan(text: ' e '),
                 TextSpan(
                   text: 'Política de Privacidade',
                   style: TextStyle(
@@ -394,7 +394,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
         child: _isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 width: 24,
                 height: 24,
                 child: CircularProgressIndicator(

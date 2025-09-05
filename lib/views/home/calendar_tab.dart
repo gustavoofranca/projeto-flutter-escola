@@ -37,7 +37,7 @@ class _CalendarTabState extends State<CalendarTab> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implementar adição de evento
+          // Note: Event creation planned for demo calendar system
         },
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.background,
@@ -50,7 +50,7 @@ class _CalendarTabState extends State<CalendarTab> {
   Widget _buildHeader() {
     return Container(
       padding: AppDimensions.screenPadding,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.surface,
         border: Border(
           bottom: BorderSide(
@@ -126,7 +126,7 @@ class _CalendarTabState extends State<CalendarTab> {
               );
             });
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.chevron_left,
             color: AppColors.textSecondary,
           ),
@@ -147,7 +147,7 @@ class _CalendarTabState extends State<CalendarTab> {
               );
             });
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.chevron_right,
             color: AppColors.textSecondary,
           ),

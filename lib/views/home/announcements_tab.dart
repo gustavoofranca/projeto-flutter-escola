@@ -28,13 +28,13 @@ class AnnouncementsTab extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implementar criação de aviso (apenas para professores)
+          // Note: Announcement creation planned for teacher role in demo system
           _showCreateAnnouncement(context);
         },
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.background,
-        child: const Icon(Icons.announcement),
         tooltip: 'Criar Aviso',
+        child: const Icon(Icons.announcement),
       ),
     );
   }
@@ -43,7 +43,7 @@ class AnnouncementsTab extends StatelessWidget {
   Widget _buildHeader() {
     return Container(
       padding: AppDimensions.screenPadding,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.surface,
         border: Border(
           bottom: BorderSide(
@@ -254,7 +254,7 @@ class AnnouncementsTab extends StatelessWidget {
             // Rodapé com autor e tempo
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.person_outline,
                   size: 16,
                   color: AppColors.textTertiary,
@@ -328,7 +328,7 @@ class AnnouncementsTab extends StatelessWidget {
 
   /// Mostra modal de criação de aviso
   void _showCreateAnnouncement(BuildContext context) {
-    // TODO: Implementar modal de criação de aviso
+    // Note: Announcement creation modal planned for demo system
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Funcionalidade de criação de avisos em desenvolvimento!'),

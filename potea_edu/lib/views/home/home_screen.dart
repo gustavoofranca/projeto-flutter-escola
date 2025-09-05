@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
-// Imports removidos - não utilizados
+import 'classes_tab.dart';
+import 'announcements_tab.dart';
+import 'calendar_tab.dart';
+import 'materials_tab.dart';
+import 'profile_tab.dart';
 
 /// Tela principal do aplicativo com navegação inferior
 class HomeScreen extends StatefulWidget {
@@ -18,8 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _tabs = [
     const DashboardTab(),
     const ClassesTab(),
-    const MessagesTab(),
+    const AnnouncementsTab(),
     const CalendarTab(),
+    const MaterialsTab(),
     const ProfileTab(),
   ];
 
@@ -68,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               _buildNavItem(
                 index: 2,
-                icon: Icons.message,
-                label: 'Mensagens',
+                icon: Icons.announcement,
+                label: 'Avisos',
               ),
               _buildNavItem(
                 index: 3,
@@ -78,6 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               _buildNavItem(
                 index: 4,
+                icon: Icons.library_books,
+                label: 'Materiais',
+              ),
+              _buildNavItem(
+                index: 5,
                 icon: Icons.person,
                 label: 'Perfil',
               ),
@@ -208,7 +218,7 @@ class DashboardTab extends StatelessWidget {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  // TODO: Implementar busca
+                                  // Note: Search functionality planned for enhanced user experience
                                 },
                                 icon: const Icon(
                                   Icons.search,
@@ -217,7 +227,7 @@ class DashboardTab extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  // TODO: Implementar notificações
+                                  // Note: Notifications system planned for real-time updates
                                 },
                                 icon: const Icon(
                                   Icons.notifications,
@@ -319,10 +329,10 @@ class DashboardTab extends StatelessWidget {
             
             Expanded(
               child: _buildSummaryCard(
-                icon: Icons.message,
-                title: 'Mensagens',
+                icon: Icons.announcement,
+                title: 'Avisos',
                 value: '12',
-                subtitle: 'Não lidas',
+                subtitle: 'Não lidos',
                 color: AppColors.warning,
               ),
             ),
@@ -555,95 +565,5 @@ class DashboardTab extends StatelessWidget {
   }
 }
 
-/// Aba de Turmas
-class ClassesTab extends StatelessWidget {
-  const ClassesTab({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Minhas Turmas'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: const Center(
-        child: Text(
-          'Conteúdo das Turmas',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
-
-/// Aba de Mensagens
-class MessagesTab extends StatelessWidget {
-  const MessagesTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Mensagens'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: const Center(
-        child: Text(
-          'Conteúdo das Mensagens',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
-
-/// Aba do Calendário
-class CalendarTab extends StatelessWidget {
-  const CalendarTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Calendário'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: const Center(
-        child: Text(
-          'Conteúdo do Calendário',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
-
-/// Aba do Perfil
-class ProfileTab extends StatelessWidget {
-  const ProfileTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Meu Perfil'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: const Center(
-        child: Text(
-          'Conteúdo do Perfil',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
 

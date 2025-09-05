@@ -1,55 +1,41 @@
 import 'package:flutter/material.dart';
-// Removido flutter_animate - usando animações nativas
+import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
-import 'login_screen.dart';
-import 'signup_screen.dart';
+import '../../providers/auth_provider.dart';
+import '../../models/user_model.dart';
 
-/// Tela principal de autenticação
-class AuthScreen extends StatefulWidget {
+class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
-  @override
-  State<AuthScreen> createState() => _AuthScreenState();
-}
-
-class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(AppDimensions.xl),
+          padding: const EdgeInsets.all(AppDimensions.lg),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
-              
-              // Logo e título
+              // Logo and title
               _buildHeader(),
               
               const SizedBox(height: AppDimensions.xxl),
               
-              // Botões de autenticação social
-              _buildSocialAuthButtons(),
-              
-              const SizedBox(height: AppDimensions.lg),
-              
-              // Divisor
-              _buildDivider(),
-              
-              const SizedBox(height: AppDimensions.lg),
-              
-              // Botão de login com senha
-              _buildPasswordAuthButton(),
+              // Welcome message
+              _buildWelcomeMessage(),
               
               const SizedBox(height: AppDimensions.xl),
               
-              // Link para cadastro
-              _buildSignupLink(),
+              // Demo login buttons
+              _buildDemoLoginButtons(context),
               
-              const Spacer(),
+              const SizedBox(height: AppDimensions.xl),
+              
+              // Footer
+              _buildFooter(),
             ],
           ),
         ),
@@ -57,17 +43,15 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  /// Constrói o cabeçalho com logo e título
   Widget _buildHeader() {
     return Column(
       children: [
-        // Logo
         Container(
-          width: 100,
-          height: 100,
+          width: 120,
+          height: 120,
           decoration: BoxDecoration(
             color: AppColors.primary,
-            borderRadius: BorderRadius.circular(AppDimensions.radiusXxl),
+            borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
                 color: AppColors.primary.withValues(alpha: 0.3),
@@ -76,194 +60,235 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ],
           ),
-          child: Icon(
+          child: const Icon(
             Icons.school,
-            size: 50,
+            size: 60,
             color: AppColors.background,
           ),
         ),
-        
         const SizedBox(height: AppDimensions.lg),
-        
-        // Título
         Text(
           'Potea Edu',
           style: AppTextStyles.h1.copyWith(
             color: AppColors.primary,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w700,
           ),
         ),
-        
         const SizedBox(height: AppDimensions.sm),
-        
-        // Subtítulo
         Text(
-          'Entre na sua conta',
-          style: AppTextStyles.h4.copyWith(
+          'Sistema de Gestão Educacional',
+          style: AppTextStyles.h6.copyWith(
             color: AppColors.textSecondary,
-            fontWeight: FontWeight.w500,
           ),
         ),
       ],
     );
   }
 
-  /// Constrói os botões de autenticação social
-  Widget _buildSocialAuthButtons() {
+  Widget _buildWelcomeMessage() {
     return Column(
       children: [
-        // Botão Google
-        _buildSocialButton(
-          icon: Icons.g_mobiledata,
-          text: 'Continuar com Google',
-          onPressed: () {
-            // TODO: Implementar autenticação Google
-            _showComingSoon();
-          },
+        Text(
+          'Bem-vindo!',
+          style: AppTextStyles.h4.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        
-        const SizedBox(height: AppDimensions.md),
-        
-        // Botão Apple
-        _buildSocialButton(
-          icon: Icons.apple,
-          text: 'Continuar com Apple',
-          onPressed: () {
-            // TODO: Implementar autenticação Apple
-            _showComingSoon();
-          },
+        const SizedBox(height: AppDimensions.sm),
+        Text(
+          'Escolha um perfil para acessar o sistema:',
+          style: AppTextStyles.bodyLarge.copyWith(
+            color: AppColors.textSecondary,
+          ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
   }
 
-  /// Constrói um botão de autenticação social
-  Widget _buildSocialButton({
+  Widget _buildDemoLoginButtons(BuildContext context) {
+    return Column(
+      children: [
+        // Student login
+        _buildLoginButton(
+          context: context,
+          title: 'Entrar como Aluno',
+          subtitle: 'João Silva - 3º Ano A',
+          icon: Icons.school,
+          color: AppColors.primary,
+          userType: UserType.student,
+        ),
+        
+        const SizedBox(height: AppDimensions.lg),
+        
+        // Teacher login
+        _buildLoginButton(
+          context: context,
+          title: 'Entrar como Professor',
+          subtitle: 'Prof. Ana Costa - Matemática',
+          icon: Icons.person,
+          color: AppColors.secondary,
+          userType: UserType.teacher,
+        ),
+        
+        const SizedBox(height: AppDimensions.lg),
+        
+        // Admin login
+        _buildLoginButton(
+          context: context,
+          title: 'Entrar como Administrador',
+          subtitle: 'Dr. Roberto Admin - Sistema',
+          icon: Icons.admin_panel_settings,
+          color: AppColors.warning,
+          userType: UserType.admin,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLoginButton({
+    required BuildContext context,
+    required String title,
+    required String subtitle,
     required IconData icon,
-    required String text,
-    required VoidCallback onPressed,
+    required Color color,
+    required UserType userType,
   }) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, size: AppDimensions.iconSizeMd),
-        label: Text(text),
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.lg,
-            vertical: AppDimensions.md,
-          ),
-          side: const BorderSide(color: AppColors.border),
-        ),
-      ),
-    );
-  }
-
-  /// Constrói o divisor
-  Widget _buildDivider() {
-    return Row(
-      children: [
-        const Expanded(child: Divider()),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
-          child: Text(
-            'ou',
-            style: AppTextStyles.bodyMedium.copyWith(
-              color: AppColors.textSecondary,
-            ),
-          ),
-        ),
-        const Expanded(child: Divider()),
-      ],
-    );
-  }
-
-  /// Constrói o botão de login com senha
-  Widget _buildPasswordAuthButton() {
-    return SizedBox(
-      width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  const LoginScreen(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(1.0, 0.0),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: child,
-                );
-              },
-              transitionDuration: const Duration(milliseconds: 500),
+        onPressed: () => _handleDemoLogin(context, userType),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color.withValues(alpha: 0.1),
+          foregroundColor: color,
+          padding: const EdgeInsets.all(AppDimensions.lg),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+            side: BorderSide(color: color.withValues(alpha: 0.3)),
+          ),
+          elevation: 0,
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppDimensions.md),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+              ),
+              child: Icon(
+                icon,
+                color: color,
+                size: AppDimensions.iconSizeLg,
+              ),
             ),
-          );
-        },
-        child: Text(
-          'Entrar com senha',
-          style: AppTextStyles.buttonMedium,
+            const SizedBox(width: AppDimensions.lg),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyles.h6.copyWith(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: AppDimensions.xs),
+                  Text(
+                    subtitle,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: color,
+              size: AppDimensions.iconSizeMd,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  /// Constrói o link para cadastro
-  Widget _buildSignupLink() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget _buildFooter() {
+    return Column(
       children: [
+        const Divider(color: AppColors.divider),
+        const SizedBox(height: AppDimensions.md),
         Text(
-          'Não tem uma conta? ',
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textSecondary,
+          'Versão de Demonstração',
+          style: AppTextStyles.caption.copyWith(
+            color: AppColors.textTertiary,
           ),
         ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const SignupScreen(),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(1.0, 0.0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
-                  );
-                },
-                transitionDuration: const Duration(milliseconds: 500),
-              ),
-            );
-          },
-          child: Text(
-            'Cadastre-se',
-            style: AppTextStyles.buttonMedium.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w600,
-            ),
+        const SizedBox(height: AppDimensions.xs),
+        Text(
+          '© 2024 Potea Education - Todos os direitos reservados',
+          style: AppTextStyles.caption.copyWith(
+            color: AppColors.textTertiary,
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
   }
 
-  /// Mostra mensagem de "em breve"
-  void _showComingSoon() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Funcionalidade em desenvolvimento!',
-          style: AppTextStyles.bodyMedium,
-        ),
-        backgroundColor: AppColors.info,
-        behavior: SnackBarBehavior.floating,
+  void _handleDemoLogin(BuildContext context, UserType userType) {
+    final authProvider = context.read<AuthProvider>();
+    
+    // Demo users data
+    final demoUsers = {
+      UserType.student: UserModel(
+        id: 'student_001',
+        name: 'João Silva',
+        email: 'joao.silva@potea.edu',
+        userType: UserType.student,
+        phoneNumber: '(11) 99999-0001',
+        classId: '3A_2024',
+        createdAt: DateTime.now().subtract(const Duration(days: 365)),
+        updatedAt: DateTime.now(),
       ),
-    );
+      UserType.teacher: UserModel(
+        id: 'teacher_001',
+        name: 'Prof. Ana Costa',
+        email: 'ana.costa@potea.edu',
+        userType: UserType.teacher,
+        phoneNumber: '(11) 99999-1001',
+        subjects: ['Matemática', 'Física'],
+        createdAt: DateTime.now().subtract(const Duration(days: 1000)),
+        updatedAt: DateTime.now(),
+      ),
+      UserType.admin: UserModel(
+        id: 'admin_001',
+        name: 'Dr. Roberto Admin',
+        email: 'admin@potea.edu',
+        userType: UserType.admin,
+        phoneNumber: '(11) 99999-9001',
+        createdAt: DateTime.now().subtract(const Duration(days: 2000)),
+        updatedAt: DateTime.now(),
+      ),
+    };
+
+    final user = demoUsers[userType];
+    if (user != null) {
+      authProvider.loginWithUser(user);
+      
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Login realizado com sucesso como ${user.userType.displayName}!',
+          ),
+          backgroundColor: AppColors.success,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 }
-

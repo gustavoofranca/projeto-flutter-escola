@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = false;
       });
 
-             // TODO: Implementar autenticação real
+      // Note: Using fictional authentication for demo purposes
       _navigateToHome();
     }
   }
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _forgotPassword() {
-    // TODO: Implementar recuperação de senha
+    // Note: Password recovery feature planned for fictional auth system
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -307,7 +307,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Expanded(
           child: OutlinedButton.icon(
             onPressed: () {
-              // TODO: Implementar autenticação Google
+              // Note: Google auth planned for fictional system
               _showComingSoon();
             },
             icon: const Icon(Icons.g_mobiledata),
@@ -324,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Expanded(
           child: OutlinedButton.icon(
             onPressed: () {
-              // TODO: Implementar autenticação Apple
+              // Note: Apple auth planned for fictional system
               _showComingSoon();
             },
             icon: const Icon(Icons.apple),

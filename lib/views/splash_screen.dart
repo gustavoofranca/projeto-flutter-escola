@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ],
             ),
-            child: Icon(
+            child: const Icon(
               Icons.school,
               size: 60,
               color: AppColors.background,

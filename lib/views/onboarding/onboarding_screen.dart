@@ -18,25 +18,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentPage = 0;
 
   final List<OnboardingPage> _pages = [
-    OnboardingPage(
+    const OnboardingPage(
       title: 'Bem-vindo ao Potea Edu',
       description: 'A plataforma educacional mais inteligente e intuitiva para alunos e professores.',
       image: Icons.school,
       color: AppColors.primary,
     ),
-    OnboardingPage(
+    const OnboardingPage(
       title: 'Aprendizado Personalizado',
       description: 'Receba conteúdo adaptado ao seu ritmo de aprendizado e estilo de estudo.',
       image: Icons.psychology,
       color: AppColors.primaryLight,
     ),
-    OnboardingPage(
+    const OnboardingPage(
       title: 'Comunicação Eficiente',
       description: 'Mantenha-se conectado com professores e colegas através do chat integrado.',
       image: Icons.chat_bubble,
       color: AppColors.primary,
     ),
-    OnboardingPage(
+    const OnboardingPage(
       title: 'Organização Total',
       description: 'Gerencie suas atividades, notas e calendário escolar em um só lugar.',
       image: Icons.calendar_today,

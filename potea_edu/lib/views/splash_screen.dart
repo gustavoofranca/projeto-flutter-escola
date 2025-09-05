@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-// Import removido - não utilizado
 import '../constants/app_colors.dart';
 import '../constants/app_text_styles.dart';
-// Import removido - não utilizado
 import 'onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {

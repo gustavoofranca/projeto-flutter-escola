@@ -40,7 +40,7 @@ class PoteaEduApp extends StatelessWidget {
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         primaryContainer: AppColors.primaryDark,
-        secondary: AppColors.primaryLight,
+        secondary: Color(0xFF66FFB3),
         surface: AppColors.surface,
         error: AppColors.error,
         onPrimary: AppColors.background,

@@ -38,13 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Constrói a barra de navegação inferior
   Widget _buildBottomNavigationBar() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.surface,
         boxShadow: [
           BoxShadow(
             color: AppColors.overlay,
             blurRadius: 10,
-            offset: const Offset(0, -2),
+            offset: Offset(0, -2),
           ),
         ],
       ),
@@ -167,7 +167,7 @@ class DashboardTab extends StatelessWidget {
                       child: Row(
                         children: [
                           // Avatar do usuário
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: AppDimensions.avatarSizeMd / 2,
                             backgroundColor: AppColors.background,
                             child: Icon(
@@ -208,7 +208,7 @@ class DashboardTab extends StatelessWidget {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  // TODO: Implementar busca
+                                  // Note: Search functionality planned for demo system
                                 },
                                 icon: const Icon(
                                   Icons.search,
@@ -217,7 +217,7 @@ class DashboardTab extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  // TODO: Implementar notificações
+                                  // Note: Notifications feature planned for demo system
                                 },
                                 icon: const Icon(
                                   Icons.notifications,
@@ -469,7 +469,7 @@ class DashboardTab extends StatelessWidget {
             ),
           ),
           
-          Icon(
+          const Icon(
             Icons.chevron_right,
             color: AppColors.textSecondary,
           ),
@@ -504,7 +504,7 @@ class DashboardTab extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.event,
                     color: AppColors.primary,
                     size: AppDimensions.iconSizeMd,

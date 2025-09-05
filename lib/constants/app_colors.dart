@@ -8,7 +8,7 @@ class AppColors {
   static const Color primaryLight = Color(0xFF66FFB3);
   
   // Tema escuro
-  static const Color background = Color(0xFF000000); // Preto
+  static const Color background = Color(0xFF0A0A0A); // Cinza muito escuro (quase preto)
   static const Color surface = Color(0xFF121212); // Cinza muito escuro
   static const Color surfaceLight = Color(0xFF1E1E1E); // Cinza escuro
   static const Color surfaceVariant = Color(0xFF2D2D2D); // Cinza médio

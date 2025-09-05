@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-// Removido flutter_animate - usando animações nativas
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/app_dimensions.dart';
-import 'login_screen.dart';
-import 'signup_screen.dart';
+import '../../models/user_model.dart';
 
-/// Tela principal de autenticação
-class AuthScreen extends StatefulWidget {
+/// Tela principal de autenticação com credenciais de demonstração
+class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
-  @override
-  State<AuthScreen> createState() => _AuthScreenState();
-}
-
-class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,23 +24,15 @@ class _AuthScreenState extends State<AuthScreen> {
               
               const SizedBox(height: AppDimensions.xxl),
               
-              // Botões de autenticação social
-              _buildSocialAuthButtons(),
-              
-              const SizedBox(height: AppDimensions.lg),
-              
-              // Divisor
-              _buildDivider(),
-              
-              const SizedBox(height: AppDimensions.lg),
-              
-              // Botão de login com senha
-              _buildPasswordAuthButton(),
+              // Texto explicativo
+              _buildExplanationText(),
               
               const SizedBox(height: AppDimensions.xl),
               
-              // Link para cadastro
-              _buildSignupLink(),
+              // Botões de demo
+              _buildDemoButtons(context),
+              
+              const SizedBox(height: AppDimensions.xl),
               
               const Spacer(),
             ],
@@ -76,7 +61,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ],
           ),
-          child: Icon(
+          child: const Icon(
             Icons.school,
             size: 50,
             color: AppColors.background,
@@ -90,7 +75,6 @@ class _AuthScreenState extends State<AuthScreen> {
           'Potea Edu',
           style: AppTextStyles.h1.copyWith(
             color: AppColors.primary,
-            fontWeight: FontWeight.w800,
           ),
         ),
         
@@ -98,172 +82,184 @@ class _AuthScreenState extends State<AuthScreen> {
         
         // Subtítulo
         Text(
-          'Entre na sua conta',
-          style: AppTextStyles.h4.copyWith(
+          'Sistema de Gestão Educacional',
+          style: AppTextStyles.h5.copyWith(
             color: AppColors.textSecondary,
-            fontWeight: FontWeight.w500,
           ),
         ),
       ],
     );
   }
 
-  /// Constrói os botões de autenticação social
-  Widget _buildSocialAuthButtons() {
+  /// Constrói o texto explicativo
+  Widget _buildExplanationText() {
+    return Container(
+      padding: const EdgeInsets.all(AppDimensions.lg),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        children: [
+          const Icon(
+            Icons.info_outline,
+            color: AppColors.info,
+            size: AppDimensions.iconSizeLg,
+          ),
+          const SizedBox(height: AppDimensions.md),
+          Text(
+            'Sistema Demonstrativo',
+            style: AppTextStyles.h6.copyWith(
+              color: AppColors.textPrimary,
+            ),
+          ),
+          const SizedBox(height: AppDimensions.sm),
+          Text(
+            'Este é um sistema educacional fictício para demonstração. Escolha um tipo de usuário abaixo para fazer login automaticamente.',
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Constrói os botões de demonstração
+  Widget _buildDemoButtons(BuildContext context) {
     return Column(
       children: [
-        // Botão Google
-        _buildSocialButton(
-          icon: Icons.g_mobiledata,
-          text: 'Continuar com Google',
-          onPressed: () {
-            // TODO: Implementar autenticação Google
-            _showComingSoon();
-          },
+        Text(
+          'Entrar como:',
+          style: AppTextStyles.h6.copyWith(
+            color: AppColors.textPrimary,
+          ),
+        ),
+        const SizedBox(height: AppDimensions.lg),
+        
+        // Botão Aluno
+        _buildDemoButton(
+          context: context,
+          title: 'Aluno',
+          subtitle: 'João Silva - 3º Ano',
+          icon: Icons.school,
+          color: AppColors.primary,
+          userType: UserType.student,
         ),
         
         const SizedBox(height: AppDimensions.md),
         
-        // Botão Apple
-        _buildSocialButton(
-          icon: Icons.apple,
-          text: 'Continuar com Apple',
-          onPressed: () {
-            // TODO: Implementar autenticação Apple
-            _showComingSoon();
-          },
+        // Botão Professor
+        _buildDemoButton(
+          context: context,
+          title: 'Professor',
+          subtitle: 'Prof. Ana Silva - Matemática',
+          icon: Icons.person,
+          color: AppColors.secondary,
+          userType: UserType.teacher,
+        ),
+        
+        const SizedBox(height: AppDimensions.md),
+        
+        // Botão Administrador
+        _buildDemoButton(
+          context: context,
+          title: 'Administrador',
+          subtitle: 'Acesso completo ao sistema',
+          icon: Icons.admin_panel_settings,
+          color: AppColors.warning,
+          userType: UserType.admin,
         ),
       ],
     );
   }
 
-  /// Constrói um botão de autenticação social
-  Widget _buildSocialButton({
+  /// Constrói um botão de demonstração
+  Widget _buildDemoButton({
+    required BuildContext context,
+    required String title,
+    required String subtitle,
     required IconData icon,
-    required String text,
-    required VoidCallback onPressed,
+    required Color color,
+    required UserType userType,
   }) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, size: AppDimensions.iconSizeMd),
-        label: Text(text),
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.lg,
-            vertical: AppDimensions.md,
-          ),
-          side: const BorderSide(color: AppColors.border),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+          border: Border.all(color: color.withValues(alpha: 0.3)),
         ),
-      ),
-    );
-  }
-
-  /// Constrói o divisor
-  Widget _buildDivider() {
-    return Row(
-      children: [
-        const Expanded(child: Divider()),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
-          child: Text(
-            'ou',
-            style: AppTextStyles.bodyMedium.copyWith(
-              color: AppColors.textSecondary,
-            ),
-          ),
-        ),
-        const Expanded(child: Divider()),
-      ],
-    );
-  }
-
-  /// Constrói o botão de login com senha
-  Widget _buildPasswordAuthButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  const LoginScreen(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(1.0, 0.0),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: child,
-                );
-              },
-              transitionDuration: const Duration(milliseconds: 500),
-            ),
-          );
-        },
-        child: Text(
-          'Entrar com senha',
-          style: AppTextStyles.buttonMedium,
-        ),
-      ),
-    );
-  }
-
-  /// Constrói o link para cadastro
-  Widget _buildSignupLink() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Não tem uma conta? ',
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textSecondary,
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const SignupScreen(),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(1.0, 0.0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
-                  );
-                },
-                transitionDuration: const Duration(milliseconds: 500),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () => _loginDemo(context, userType),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+            child: Padding(
+              padding: const EdgeInsets.all(AppDimensions.lg),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(AppDimensions.md),
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+                    ),
+                    child: Icon(
+                      icon,
+                      color: color,
+                      size: AppDimensions.iconSizeLg,
+                    ),
+                  ),
+                  const SizedBox(width: AppDimensions.lg),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: AppTextStyles.h6.copyWith(
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: AppDimensions.xs),
+                        Text(
+                          subtitle,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: AppColors.textSecondary,
+                    size: AppDimensions.iconSizeMd,
+                  ),
+                ],
               ),
-            );
-          },
-          child: Text(
-            'Cadastre-se',
-            style: AppTextStyles.buttonMedium.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w600,
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
-  /// Mostra mensagem de "em breve"
-  void _showComingSoon() {
+  /// Faz login com credenciais de demonstração
+  Future<void> _loginDemo(BuildContext context, UserType userType) async {
+    // Demo implementation - simplified for standalone project
+    final userTypeName = userType.toString().split('.').last;
+    
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Funcionalidade em desenvolvimento!',
-          style: AppTextStyles.bodyMedium,
+          'Login demo como $userTypeName realizado com sucesso!',
         ),
-        backgroundColor: AppColors.info,
-        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.success,
       ),
     );
   }
 }
-

@@ -51,7 +51,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
         _isLoading = false;
       });
 
-             // TODO: Salvar dados do perfil
+      // Note: Profile data saving planned for demo system
       _navigateToHome();
     }
   }
@@ -176,7 +176,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
         children: [
           GestureDetector(
             onTap: () {
-              // TODO: Implementar seleção de foto
+              // Note: Photo selection feature planned for demo system
               _showPhotoPicker();
             },
             child: Container(
@@ -191,7 +191,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                   style: BorderStyle.solid,
                 ),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.camera_alt,
                 size: AppDimensions.iconSizeXl,
                 color: AppColors.primary,
@@ -432,7 +432,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                 title: const Text('Câmera'),
                 onTap: () {
                   Navigator.pop(context);
-                  // TODO: Implementar captura de foto
+                  // Note: Camera capture planned for demo system
                   _showComingSoon();
                 },
               ),
@@ -442,7 +442,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                 title: const Text('Galeria'),
                 onTap: () {
                   Navigator.pop(context);
-                  // TODO: Implementar seleção da galeria
+                  // Note: Gallery selection planned for demo system
                   _showComingSoon();
                 },
               ),

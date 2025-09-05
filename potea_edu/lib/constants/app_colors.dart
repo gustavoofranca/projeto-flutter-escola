@@ -9,7 +9,7 @@ class AppColors {
   static const Color secondary = Color(0xFF00E676); // Verde secundário
   
   // Tema escuro
-  static const Color background = Color(0xFF000000); // Preto
+  static const Color background = Color(0xFF0A0A0A); // Cinza muito escuro (quase preto)
   static const Color surface = Color(0xFF121212); // Cinza muito escuro
   static const Color surfaceLight = Color(0xFF1E1E1E); // Cinza escuro
   static const Color surfaceVariant = Color(0xFF2D2D2D); // Cinza médio
@@ -33,6 +33,7 @@ class AppColors {
   
   // Bordas e divisores
   static const Color border = Color(0xFF404040);
+  static const Color borderColor = Color(0xFF404040); // Alias for border
   static const Color divider = Color(0xFF2D2D2D);
   
   // Overlays

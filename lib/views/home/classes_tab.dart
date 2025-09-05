@@ -142,7 +142,7 @@ class ClassesTab extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward_ios,
                 color: AppColors.textSecondary,
                 size: AppDimensions.iconSizeSm,
@@ -152,7 +152,7 @@ class ClassesTab extends StatelessWidget {
           const SizedBox(height: AppDimensions.md),
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.person,
                 color: AppColors.textSecondary,
                 size: AppDimensions.iconSizeSm,
@@ -165,7 +165,7 @@ class ClassesTab extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Icon(
+              const Icon(
                 Icons.group,
                 color: AppColors.textSecondary,
                 size: AppDimensions.iconSizeSm,

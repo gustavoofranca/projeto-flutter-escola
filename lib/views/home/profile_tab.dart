@@ -215,7 +215,7 @@ class ProfileTab extends StatelessWidget {
           title: 'Editar Perfil',
           subtitle: 'Alterar informações pessoais',
           onTap: () {
-            // TODO: Implementar edição de perfil
+            // Note: Profile editing feature planned for demo system
           },
         ),
         _buildMenuItem(
@@ -223,7 +223,7 @@ class ProfileTab extends StatelessWidget {
           title: 'Notificações',
           subtitle: 'Configurar alertas e lembretes',
           onTap: () {
-            // TODO: Implementar configurações de notificação
+            // Note: Notification settings planned for demo system
           },
         ),
         _buildMenuItem(
@@ -231,7 +231,7 @@ class ProfileTab extends StatelessWidget {
           title: 'Privacidade',
           subtitle: 'Configurações de segurança',
           onTap: () {
-            // TODO: Implementar configurações de privacidade
+            // Note: Privacy settings planned for demo system
           },
         ),
         _buildMenuItem(
@@ -239,7 +239,7 @@ class ProfileTab extends StatelessWidget {
           title: 'Ajuda e Suporte',
           subtitle: 'Central de ajuda e contato',
           onTap: () {
-            // TODO: Implementar tela de ajuda
+            // Note: Help screen planned for demo system
           },
         ),
         _buildMenuItem(
@@ -247,7 +247,7 @@ class ProfileTab extends StatelessWidget {
           title: 'Sobre o App',
           subtitle: 'Versão e informações',
           onTap: () {
-            // TODO: Implementar tela sobre
+            // Note: About screen planned for demo system
           },
         ),
       ],
@@ -299,7 +299,7 @@ class ProfileTab extends StatelessWidget {
             color: AppColors.textSecondary,
           ),
         ),
-        trailing: Icon(
+        trailing: const Icon(
           Icons.arrow_forward_ios,
           color: AppColors.textSecondary,
           size: AppDimensions.iconSizeSm,

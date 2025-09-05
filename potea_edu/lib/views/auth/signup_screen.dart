@@ -57,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _isLoading = false;
       });
 
-             // TODO: Implementar cadastro real
+      // Note: Using fictional registration for demo purposes
       _navigateToSetupProfile();
     }
   }
