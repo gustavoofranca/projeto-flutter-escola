@@ -8,16 +8,16 @@ class AppColors {
   static const Color primaryLight = Color(0xFF66FFB3);
   static const Color secondary = Color(0xFF00E676); // Verde secundário
   
-  // Tema escuro
-  static const Color background = Color(0xFF0A0A0A); // Cinza muito escuro (quase preto)
-  static const Color surface = Color(0xFF121212); // Cinza muito escuro
-  static const Color surfaceLight = Color(0xFF1E1E1E); // Cinza escuro
-  static const Color surfaceVariant = Color(0xFF2D2D2D); // Cinza médio
+  // Tema escuro com fundo #2a3030
+  static const Color background = Color(0xFF2A3030); // Azul-acinzentado escuro
+  static const Color surface = Color(0xFF373E3E); // Superfície ligeiramente mais clara
+  static const Color surfaceLight = Color(0xFF454D4D); // Superfície mais clara
+  static const Color surfaceVariant = Color(0xFF545D5D); // Variante da superfície
   
   // Texto
   static const Color textPrimary = Color(0xFFFFFFFF); // Branco
-  static const Color textSecondary = Color(0xFFB3B3B3); // Cinza claro
-  static const Color textTertiary = Color(0xFF808080); // Cinza médio
+  static const Color textSecondary = Color(0xFFBFC5C5); // Cinza claro com tom azulado
+  static const Color textTertiary = Color(0xFF9DA3A3); // Cinza médio com tom azulado
   
   // Cores do tema Material 3
   static const Color onPrimary = Color(0xFF000000); // Texto sobre primary
@@ -32,13 +32,13 @@ class AppColors {
   static const Color info = Color(0xFF3742FA);
   
   // Bordas e divisores
-  static const Color border = Color(0xFF404040);
-  static const Color borderColor = Color(0xFF404040); // Alias for border
-  static const Color divider = Color(0xFF2D2D2D);
+  static const Color border = Color(0xFF545D5D);
+  static const Color borderColor = Color(0xFF545D5D); // Alias for border
+  static const Color divider = Color(0xFF454D4D);
   
   // Overlays
-  static const Color overlay = Color(0x80000000);
-  static const Color overlayLight = Color(0x40000000);
+  static const Color overlay = Color(0x992A3030); // Overlay com a cor de fundo
+  static const Color overlayLight = Color(0x4D2A3030); // Overlay mais claro
   
   // Gradientes
   static const LinearGradient primaryGradient = LinearGradient(
@@ -53,4 +53,3 @@ class AppColors {
     end: Alignment.bottomCenter,
   );
 }
-

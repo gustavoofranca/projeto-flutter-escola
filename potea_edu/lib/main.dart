@@ -5,6 +5,7 @@ import 'views/home/home_screen.dart';
 import 'providers/auth_provider.dart';
 import 'providers/announcement_provider.dart';
 import 'providers/book_download_provider.dart';
+import 'constants/app_colors.dart';
 
 void main() {
   runApp(const PoteaEduApp());
@@ -30,7 +31,7 @@ class PoteaEduApp extends StatelessWidget {
           colorScheme: const ColorScheme.dark(
             primary: Color(0xFF00FF7F), // Verde neon
             secondary: Color(0xFF00E676),
-            surface: Color(0xFF121212),
+            surface: Color(0xFF373E3E), // Updated to match new color scheme
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
@@ -117,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: AppColors.background, // Updated to use new background color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
