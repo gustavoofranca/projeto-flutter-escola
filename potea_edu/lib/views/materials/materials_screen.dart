@@ -23,7 +23,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
   final GoogleBooksService _booksService = GoogleBooksService();
   final CuratedBooksService _curatedService = CuratedBooksService();
   final TextEditingController _searchController = TextEditingController();
-  
+
   List<BookModel> _books = [];
   List<BookModel> _featuredBooks = [];
   List<BookModel> _curatedBooks = [];
@@ -31,7 +31,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
   bool _isLoadingFeatured = true;
   bool _isLoadingCurated = true;
   String _currentQuery = '';
-  
+
   final List<String> _categories = [
     'Matemática',
     'Ciências',
@@ -77,7 +77,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
     try {
       final curatedBookQueries = _curatedService.getCuratedBooks();
       final List<BookModel> loadedBooks = [];
-      
+
       // Carregar alguns livros curados (limitando para não sobrecarregar)
       for (int i = 0; i < curatedBookQueries.take(8).length; i++) {
         try {
@@ -91,7 +91,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
           continue;
         }
       }
-      
+
       if (mounted) {
         setState(() {
           _curatedBooks = loadedBooks;
@@ -140,7 +140,9 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
     });
 
     try {
-      final books = await _booksService.searchBooksBySubject(category.toLowerCase());
+      final books = await _booksService.searchBooksBySubject(
+        category.toLowerCase(),
+      );
       if (mounted) {
         setState(() {
           _books = books;
@@ -166,7 +168,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
     try {
       final curatedBookQueries = _curatedService.getBooksByGrade(grade);
       final List<BookModel> loadedBooks = [];
-      
+
       for (int i = 0; i < curatedBookQueries.take(6).length; i++) {
         try {
           final query = curatedBookQueries[i]['query'] as String;
@@ -178,7 +180,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
           continue;
         }
       }
-      
+
       if (mounted) {
         setState(() {
           _curatedBooks = loadedBooks;
@@ -208,24 +210,23 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
   void _openBookDetails(BookModel book) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => BookDetailsScreen(book: book),
-      ),
+      MaterialPageRoute(builder: (context) => BookDetailsScreen(book: book)),
     );
   }
 
   void _openBookReader(BookModel book) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => BookReaderScreen(book: book),
-      ),
+      MaterialPageRoute(builder: (context) => BookReaderScreen(book: book)),
     );
   }
 
   Future<void> _downloadBook(BuildContext context, BookModel book) async {
-    final downloadProvider = Provider.of<BookDownloadProvider>(context, listen: false);
-    
+    final downloadProvider = Provider.of<BookDownloadProvider>(
+      context,
+      listen: false,
+    );
+
     // Se já está baixado, mostra mensagem
     if (downloadProvider.isBookDownloaded(book.id)) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -237,10 +238,10 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       );
       return;
     }
-    
+
     // Inicia o download
     final result = await downloadProvider.downloadBook(book);
-    
+
     if (result) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -279,14 +280,14 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
           children: [
             // Search Bar
             _buildSearchBar(),
-            
+
             const SizedBox(height: AppDimensions.xl),
-            
+
             // Categories
             _buildCategories(),
-            
+
             const SizedBox(height: AppDimensions.xl),
-            
+
             // Curated Educational Books (when no search)
             if (_currentQuery.isEmpty) ...[
               const SectionTitle(
@@ -295,9 +296,9 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
               ),
               const SizedBox(height: AppDimensions.lg),
               _buildCuratedBooks(),
-              
+
               const SizedBox(height: AppDimensions.xl),
-              
+
               const SectionTitle(
                 title: 'Livros em Destaque',
                 subtitle: 'Materiais educacionais populares',
@@ -305,7 +306,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
               const SizedBox(height: AppDimensions.lg),
               _buildFeaturedBooks(),
             ],
-            
+
             // Search Results
             if (_currentQuery.isNotEmpty) ...[
               SectionTitle(
@@ -334,10 +335,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
         decoration: InputDecoration(
           hintText: 'Buscar livros educacionais...',
           hintStyle: const TextStyle(color: AppColors.textSecondary),
-          prefixIcon: const Icon(
-            Icons.search,
-            color: AppColors.textSecondary,
-          ),
+          prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
                   icon: const Icon(Icons.clear, color: AppColors.textSecondary),
@@ -419,9 +417,9 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       children: [
         // Grade levels tabs
         _buildGradeLevelTabs(),
-        
+
         const SizedBox(height: AppDimensions.lg),
-        
+
         // Curated books grid
         GridView.builder(
           shrinkWrap: true,
@@ -443,7 +441,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
 
   Widget _buildGradeLevelTabs() {
     final gradeLevels = ['Ensino Fundamental', 'Ensino Médio'];
-    
+
     return SizedBox(
       height: 40,
       child: ListView.builder(
@@ -488,7 +486,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       builder: (context, downloadProvider, child) {
         final isDownloaded = downloadProvider.isBookDownloaded(book.id);
         final downloadProgress = downloadProvider.getDownloadProgress(book.id);
-        
+
         return GestureDetector(
           onTap: () => _openBookDetails(book),
           child: Container(
@@ -521,7 +519,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                     ),
                   ),
                 ),
-                
+
                 // Book Info
                 Expanded(
                   flex: 2,
@@ -544,7 +542,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const Spacer(),
-                        
+
                         // Action buttons
                         Row(
                           children: [
@@ -556,10 +554,16 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                                     vertical: AppDimensions.xs,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: AppColors.primary.withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(AppDimensions.radiusXs),
+                                    color: AppColors.primary.withValues(
+                                      alpha: 0.1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                      AppDimensions.radiusXs,
+                                    ),
                                     border: Border.all(
-                                      color: AppColors.primary.withValues(alpha: 0.3),
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.3,
+                                      ),
                                     ),
                                   ),
                                   child: const Center(
@@ -574,22 +578,32 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                             const SizedBox(width: AppDimensions.xs),
                             Expanded(
                               child: GestureDetector(
-                                onTap: downloadProgress != null 
-                                    ? null 
+                                onTap: downloadProgress != null
+                                    ? null
                                     : () => _downloadBook(context, book),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: AppDimensions.xs,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isDownloaded 
-                                        ? AppColors.success.withValues(alpha: 0.1)
-                                        : AppColors.secondary.withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(AppDimensions.radiusXs),
+                                    color: isDownloaded
+                                        ? AppColors.success.withValues(
+                                            alpha: 0.1,
+                                          )
+                                        : AppColors.secondary.withValues(
+                                            alpha: 0.1,
+                                          ),
+                                    borderRadius: BorderRadius.circular(
+                                      AppDimensions.radiusXs,
+                                    ),
                                     border: Border.all(
-                                      color: isDownloaded 
-                                          ? AppColors.success.withValues(alpha: 0.3)
-                                          : AppColors.secondary.withValues(alpha: 0.3),
+                                      color: isDownloaded
+                                          ? AppColors.success.withValues(
+                                              alpha: 0.3,
+                                            )
+                                          : AppColors.secondary.withValues(
+                                              alpha: 0.3,
+                                            ),
                                     ),
                                   ),
                                   child: Center(
@@ -605,8 +619,8 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                                           )
                                         : CustomTypography.caption(
                                             text: isDownloaded ? '✓' : '⬇',
-                                            color: isDownloaded 
-                                                ? AppColors.success 
+                                            color: isDownloaded
+                                                ? AppColors.success
                                                 : AppColors.secondary,
                                           ),
                                   ),
@@ -687,8 +701,10 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       return Consumer<BookDownloadProvider>(
         builder: (context, downloadProvider, child) {
           final isDownloaded = downloadProvider.isBookDownloaded(book.id);
-          final downloadProgress = downloadProvider.getDownloadProgress(book.id);
-          
+          final downloadProgress = downloadProvider.getDownloadProgress(
+            book.id,
+          );
+
           return GestureDetector(
             onTap: () => _openBookDetails(book),
             child: Container(
@@ -720,7 +736,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                           : _buildBookPlaceholder(),
                     ),
                   ),
-                  
+
                   // Book Info
                   Expanded(
                     child: Padding(
@@ -761,22 +777,28 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                           const Spacer(),
                           // Download button
                           GestureDetector(
-                            onTap: downloadProgress != null 
-                                ? null 
+                            onTap: downloadProgress != null
+                                ? null
                                 : () => _downloadBook(context, book),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                 vertical: AppDimensions.xs,
                               ),
                               decoration: BoxDecoration(
-                                color: isDownloaded 
+                                color: isDownloaded
                                     ? AppColors.success.withValues(alpha: 0.1)
-                                    : AppColors.secondary.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(AppDimensions.radiusXs),
+                                    : AppColors.secondary.withValues(
+                                        alpha: 0.1,
+                                      ),
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusXs,
+                                ),
                                 border: Border.all(
-                                  color: isDownloaded 
+                                  color: isDownloaded
                                       ? AppColors.success.withValues(alpha: 0.3)
-                                      : AppColors.secondary.withValues(alpha: 0.3),
+                                      : AppColors.secondary.withValues(
+                                          alpha: 0.3,
+                                        ),
                                 ),
                               ),
                               child: Center(
@@ -791,9 +813,11 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                                         ),
                                       )
                                     : CustomTypography.caption(
-                                        text: isDownloaded ? '✓ Baixado' : '⬇ Baixar',
-                                        color: isDownloaded 
-                                            ? AppColors.success 
+                                        text: isDownloaded
+                                            ? '✓ Baixado'
+                                            : '⬇ Baixar',
+                                        color: isDownloaded
+                                            ? AppColors.success
                                             : AppColors.secondary,
                                       ),
                               ),
@@ -816,7 +840,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       builder: (context, downloadProvider, child) {
         final isDownloaded = downloadProvider.isBookDownloaded(book.id);
         final downloadProgress = downloadProvider.getDownloadProgress(book.id);
-        
+
         return GestureDetector(
           onTap: () => _openBookDetails(book),
           child: Container(
@@ -846,9 +870,9 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                         : _buildBookPlaceholder(),
                   ),
                 ),
-                
+
                 const SizedBox(width: AppDimensions.md),
-                
+
                 // Book Info
                 Expanded(
                   child: Column(
@@ -890,7 +914,8 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                             ),
                             const SizedBox(width: 4),
                             CustomTypography.bodySmall(
-                              text: '${book.averageRating!.toStringAsFixed(1)} (${book.ratingsCount ?? 0} avaliações)',
+                              text:
+                                  '${book.averageRating!.toStringAsFixed(1)} (${book.ratingsCount ?? 0} avaliações)',
                               color: AppColors.textSecondary,
                             ),
                           ],
@@ -908,8 +933,8 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                       const SizedBox(height: AppDimensions.sm),
                       // Download button
                       GestureDetector(
-                        onTap: downloadProgress != null 
-                            ? null 
+                        onTap: downloadProgress != null
+                            ? null
                             : () => _downloadBook(context, book),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -917,12 +942,14 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                             vertical: AppDimensions.xs,
                           ),
                           decoration: BoxDecoration(
-                            color: isDownloaded 
+                            color: isDownloaded
                                 ? AppColors.success.withValues(alpha: 0.1)
                                 : AppColors.secondary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(AppDimensions.radiusXs),
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.radiusXs,
+                            ),
                             border: Border.all(
-                              color: isDownloaded 
+                              color: isDownloaded
                                   ? AppColors.success.withValues(alpha: 0.3)
                                   : AppColors.secondary.withValues(alpha: 0.3),
                             ),
@@ -931,26 +958,29 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                downloadProgress != null 
-                                    ? Icons.downloading 
-                                    : isDownloaded 
-                                        ? Icons.download_done 
-                                        : Icons.download,
+                                downloadProgress != null
+                                    ? Icons.downloading
+                                    : isDownloaded
+                                    ? Icons.download_done
+                                    : Icons.download,
                                 size: 16,
-                                color: isDownloaded 
-                                    ? AppColors.success 
+                                color: isDownloaded
+                                    ? AppColors.success
                                     : AppColors.secondary,
                               ),
                               const SizedBox(width: AppDimensions.xs),
                               downloadProgress != null
                                   ? CustomTypography.caption(
-                                      text: '${(downloadProgress * 100).toInt()}%',
+                                      text:
+                                          '${(downloadProgress * 100).toInt()}%',
                                       color: AppColors.secondary,
                                     )
                                   : CustomTypography.caption(
-                                      text: isDownloaded ? 'Baixado' : 'Baixar PDF',
-                                      color: isDownloaded 
-                                          ? AppColors.success 
+                                      text: isDownloaded
+                                          ? 'Baixado'
+                                          : 'Baixar PDF',
+                                      color: isDownloaded
+                                          ? AppColors.success
                                           : AppColors.secondary,
                                     ),
                             ],
@@ -972,11 +1002,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
     return Container(
       color: AppColors.surfaceLight,
       child: const Center(
-        child: Icon(
-          Icons.book,
-          color: AppColors.textSecondary,
-          size: 40,
-        ),
+        child: Icon(Icons.book, color: AppColors.textSecondary, size: 40),
       ),
     );
   }

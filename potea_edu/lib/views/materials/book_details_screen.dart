@@ -13,10 +13,7 @@ import '../../components/atoms/custom_button.dart';
 class BookDetailsScreen extends StatelessWidget {
   final BookModel book;
 
-  const BookDetailsScreen({
-    super.key,
-    required this.book,
-  });
+  const BookDetailsScreen({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +43,7 @@ class BookDetailsScreen extends StatelessWidget {
           children: [
             // Header with book cover and basic info
             _buildHeader(),
-            
+
             // Book details
             Padding(
               padding: const EdgeInsets.all(AppDimensions.lg),
@@ -64,12 +61,12 @@ class BookDetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: AppDimensions.xl),
                   ],
-                  
+
                   // Book info
                   _buildBookInfo(context),
-                  
+
                   const SizedBox(height: AppDimensions.xl),
-                  
+
                   // Action buttons
                   _buildActionButtons(context),
                 ],
@@ -122,9 +119,9 @@ class BookDetailsScreen extends StatelessWidget {
                     : _buildBookPlaceholder(),
               ),
             ),
-            
+
             const SizedBox(width: AppDimensions.lg),
-            
+
             // Book Info
             Expanded(
               child: Column(
@@ -136,14 +133,14 @@ class BookDetailsScreen extends StatelessWidget {
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
+
                   const SizedBox(height: AppDimensions.sm),
-                  
+
                   CustomTypography.h6(
                     text: book.authorsString,
                     color: AppColors.textSecondary,
                   ),
-                  
+
                   if (book.publisher != null) ...[
                     const SizedBox(height: AppDimensions.xs),
                     CustomTypography.bodyMedium(
@@ -151,7 +148,7 @@ class BookDetailsScreen extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                   ],
-                  
+
                   if (book.publishedDate != null) ...[
                     const SizedBox(height: AppDimensions.xs),
                     CustomTypography.bodyMedium(
@@ -159,7 +156,7 @@ class BookDetailsScreen extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                   ],
-                  
+
                   if (book.averageRating != null) ...[
                     const SizedBox(height: AppDimensions.md),
                     Row(
@@ -170,18 +167,21 @@ class BookDetailsScreen extends StatelessWidget {
                             size: 20,
                             color: index < book.averageRating!.round()
                                 ? AppColors.warning
-                                : AppColors.textSecondary.withValues(alpha: 0.3),
+                                : AppColors.textSecondary.withValues(
+                                    alpha: 0.3,
+                                  ),
                           );
                         }),
                         const SizedBox(width: AppDimensions.sm),
                         CustomTypography.bodyMedium(
-                          text: '${book.averageRating!.toStringAsFixed(1)} (${book.ratingsCount ?? 0})',
+                          text:
+                              '${book.averageRating!.toStringAsFixed(1)} (${book.ratingsCount ?? 0})',
                           color: AppColors.textSecondary,
                         ),
                       ],
                     ),
                   ],
-                  
+
                   if (book.categories.isNotEmpty) ...[
                     const SizedBox(height: AppDimensions.md),
                     Wrap(
@@ -195,7 +195,9 @@ class BookDetailsScreen extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: AppColors.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(AppDimensions.radiusXs),
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.radiusXs,
+                            ),
                             border: Border.all(
                               color: AppColors.primary.withValues(alpha: 0.3),
                             ),
@@ -221,10 +223,7 @@ class BookDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTypography.h6(
-          text: title,
-          color: AppColors.textPrimary,
-        ),
+        CustomTypography.h6(text: title, color: AppColors.textPrimary),
         const SizedBox(height: AppDimensions.md),
         content,
       ],
@@ -232,18 +231,19 @@ class BookDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildBookInfo(BuildContext context) {
-    final downloadProvider = Provider.of<BookDownloadProvider>(context, listen: false);
+    final downloadProvider = Provider.of<BookDownloadProvider>(
+      context,
+      listen: false,
+    );
     final estimatedSize = downloadProvider.getEstimatedFileSize(book);
-    
+
     final infoItems = <Map<String, String>>[
       if (book.pageCount != null)
         {'label': 'Páginas', 'value': '${book.pageCount} páginas'},
       if (book.language != null)
         {'label': 'Idioma', 'value': _getLanguageName(book.language!)},
-      if (book.isbn13 != null)
-        {'label': 'ISBN-13', 'value': book.isbn13!},
-      if (book.isbn10 != null)
-        {'label': 'ISBN-10', 'value': book.isbn10!},
+      if (book.isbn13 != null) {'label': 'ISBN-13', 'value': book.isbn13!},
+      if (book.isbn10 != null) {'label': 'ISBN-10', 'value': book.isbn10!},
       {'label': 'Tamanho estimado', 'value': estimatedSize},
     ];
 
@@ -290,9 +290,9 @@ class BookDetailsScreen extends StatelessWidget {
       children: [
         // Download button
         _buildDownloadButton(context),
-        
+
         const SizedBox(height: AppDimensions.md),
-        
+
         if (book.previewLink != null)
           SizedBox(
             width: double.infinity,
@@ -302,9 +302,9 @@ class BookDetailsScreen extends StatelessWidget {
               onPressed: () => _openPreview(context),
             ),
           ),
-        
+
         const SizedBox(height: AppDimensions.md),
-        
+
         Row(
           children: [
             if (book.infoLink != null)
@@ -316,10 +316,10 @@ class BookDetailsScreen extends StatelessWidget {
                   onPressed: () => _openInfoLink(context),
                 ),
               ),
-            
+
             if (book.infoLink != null && book.isbn13 != null)
               const SizedBox(width: AppDimensions.md),
-            
+
             if (book.isbn13 != null)
               Expanded(
                 child: CustomButton(
@@ -340,16 +340,16 @@ class BookDetailsScreen extends StatelessWidget {
       builder: (context, downloadProvider, child) {
         final isDownloaded = downloadProvider.isBookDownloaded(book.id);
         final downloadProgress = downloadProvider.getDownloadProgress(book.id);
-        
+
         return SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: downloadProgress != null 
-                ? null 
+            onPressed: downloadProgress != null
+                ? null
                 : () => _downloadBook(context, downloadProvider),
             style: ElevatedButton.styleFrom(
-              backgroundColor: isDownloaded 
-                  ? AppColors.success 
+              backgroundColor: isDownloaded
+                  ? AppColors.success
                   : AppColors.secondary,
               foregroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(
@@ -376,7 +376,8 @@ class BookDetailsScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: AppDimensions.sm),
                       CustomTypography.bodyMedium(
-                        text: 'Baixando... ${(downloadProgress * 100).toInt()}%',
+                        text:
+                            'Baixando... ${(downloadProgress * 100).toInt()}%',
                         color: Colors.black,
                       ),
                     ],
@@ -405,11 +406,7 @@ class BookDetailsScreen extends StatelessWidget {
     return Container(
       color: AppColors.surfaceLight,
       child: const Center(
-        child: Icon(
-          Icons.book,
-          color: AppColors.textSecondary,
-          size: 60,
-        ),
+        child: Icon(Icons.book, color: AppColors.textSecondary, size: 60),
       ),
     );
   }
@@ -427,9 +424,10 @@ class BookDetailsScreen extends StatelessWidget {
   }
 
   void _shareBook(BuildContext context) {
-    final text = 'Confira este livro: "${book.title}" por ${book.authorsString}';
+    final text =
+        'Confira este livro: "${book.title}" por ${book.authorsString}';
     Clipboard.setData(ClipboardData(text: text));
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Informações do livro copiadas!'),
@@ -439,7 +437,10 @@ class BookDetailsScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _downloadBook(BuildContext context, BookDownloadProvider downloadProvider) async {
+  Future<void> _downloadBook(
+    BuildContext context,
+    BookDownloadProvider downloadProvider,
+  ) async {
     // Se já está baixado, mostra mensagem
     if (downloadProvider.isBookDownloaded(book.id)) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -451,10 +452,10 @@ class BookDetailsScreen extends StatelessWidget {
       );
       return;
     }
-    
+
     // Inicia o download
     final result = await downloadProvider.downloadBook(book);
-    
+
     if (result) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

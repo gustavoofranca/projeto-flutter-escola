@@ -12,45 +12,48 @@ class BookDownloadService {
   static final Set<String> _downloadedBooks = <String>{};
 
   /// Realiza o download de um PDF do livro
-  Future<bool> downloadBookPDF(BookModel book, {
+  Future<bool> downloadBookPDF(
+    BookModel book, {
     Function(double)? onProgress,
     Function(String)? onError,
   }) async {
     try {
       final bookId = book.id;
-      
+
       // Verifica se já foi baixado
       if (isBookDownloaded(bookId)) {
         return true;
       }
-      
+
       // Verifica se há um link de preview disponível
       if (book.previewLink == null) {
         onError?.call('Livro não possui prévia disponível para download');
         return false;
       }
-      
+
       // Marca início do download
       _downloadProgress[bookId] = 0.0;
       onProgress?.call(0.0);
-      
+
       // Faz o download do PDF
       final Uri uri = Uri.parse(book.previewLink!);
-      final http.Response response = await http.get(uri).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          throw Exception('Tempo limite excedido ao baixar o livro');
-        },
-      );
-      
+      final http.Response response = await http
+          .get(uri)
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception('Tempo limite excedido ao baixar o livro');
+            },
+          );
+
       if (response.statusCode == 200) {
         // Atualiza progresso
         _downloadProgress[bookId] = 0.5;
         onProgress?.call(0.5);
-        
+
         // Salva o arquivo
         final result = await _savePdfFile(bookId, response.bodyBytes);
-        
+
         if (result) {
           // Marca como baixado
           _downloadedBooks.add(bookId);
@@ -63,7 +66,9 @@ class BookDownloadService {
           return false;
         }
       } else {
-        onError?.call('Falha ao baixar o livro. Código de status: ${response.statusCode}');
+        onError?.call(
+          'Falha ao baixar o livro. Código de status: ${response.statusCode}',
+        );
         _downloadProgress.remove(bookId);
         return false;
       }
@@ -80,16 +85,16 @@ class BookDownloadService {
       // Obtém o diretório de documentos
       final directory = await getApplicationDocumentsDirectory();
       final downloadDir = Directory('${directory.path}/$_downloadPath');
-      
+
       // Cria o diretório se não existir
       if (!await downloadDir.exists()) {
         await downloadDir.create(recursive: true);
       }
-      
+
       // Cria o arquivo
       final file = File('${downloadDir.path}/$bookId.pdf');
       await file.writeAsBytes(pdfData);
-      
+
       return await file.exists();
     } catch (e) {
       return false;
@@ -117,11 +122,11 @@ class BookDownloadService {
       // Remove o arquivo PDF
       final directory = await getApplicationDocumentsDirectory();
       final file = File('${directory.path}/$_downloadPath/$bookId.pdf');
-      
+
       if (await file.exists()) {
         await file.delete();
       }
-      
+
       // Remove do conjunto de livros baixados
       _downloadedBooks.remove(bookId);
       return true;
@@ -147,15 +152,15 @@ class BookDownloadService {
   /// Obtém o caminho do arquivo PDF baixado
   Future<String?> getBookPDFPath(String bookId) async {
     if (!isBookDownloaded(bookId)) return null;
-    
+
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/$_downloadPath/$bookId.pdf';
     final file = File(filePath);
-    
+
     if (await file.exists()) {
       return filePath;
     }
-    
+
     return null;
   }
 
@@ -165,14 +170,14 @@ class BookDownloadService {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final downloadDir = Directory('${directory.path}/$_downloadPath');
-      
+
       if (await downloadDir.exists()) {
         await downloadDir.delete(recursive: true);
       }
     } catch (e) {
       // Ignora erros na deleção
     }
-    
+
     _downloadedBooks.clear();
     _downloadProgress.clear();
   }
@@ -180,12 +185,12 @@ class BookDownloadService {
   /// Obtém estatísticas de download
   Future<Map<String, dynamic>> getDownloadStats() async {
     double totalSizeMB = 0.0;
-    
+
     // Calcula o tamanho total dos arquivos
     try {
       final directory = await getApplicationDocumentsDirectory();
       final downloadDir = Directory('${directory.path}/$_downloadPath');
-      
+
       if (await downloadDir.exists()) {
         await for (final file in downloadDir.list(recursive: true)) {
           if (file is File && file.path.endsWith('.pdf')) {
@@ -198,7 +203,7 @@ class BookDownloadService {
       // Usa estimativa se não conseguir calcular
       totalSizeMB = _downloadedBooks.length * 15.5;
     }
-    
+
     return {
       'totalDownloaded': _downloadedBooks.length,
       'currentDownloads': _downloadProgress.length,

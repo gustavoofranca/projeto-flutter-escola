@@ -11,10 +11,7 @@ import '../../components/atoms/custom_typography.dart';
 class BookReaderScreen extends StatefulWidget {
   final BookModel book;
 
-  const BookReaderScreen({
-    super.key,
-    required this.book,
-  });
+  const BookReaderScreen({super.key, required this.book});
 
   @override
   State<BookReaderScreen> createState() => _BookReaderScreenState();
@@ -23,13 +20,13 @@ class BookReaderScreen extends StatefulWidget {
 class _BookReaderScreenState extends State<BookReaderScreen> {
   final PageController _pageController = PageController();
   final ScrollController _scrollController = ScrollController();
-  
+
   int _currentPage = 0;
   double _fontSize = 16.0;
   double _brightness = 1.0;
   bool _isDarkMode = true;
   bool _showControls = true;
-  
+
   // Conteúdo simulado do livro (na prática, viria da API ou arquivo)
   List<String> _bookContent = [];
 
@@ -69,13 +66,13 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
       '''Capítulo 1 - Do título
 
 Uma noite destas, vindo da cidade para o Engenho Novo, encontrei num trem da Central um rapaz aqui do bairro, que eu conheço de vista e de chapéu. Cumprimentou-me, sentou-se ao pé de mim, falou da lua e dos ministros, e acabou recitando-me versos. A viagem era curta, e os versos pode ser que não fossem inteiramente maus. Faltava-lhe, porém, o método de arte, o polimento, a correção; e depois, fazia-me vir uma história velha, aquela dos versos com que os rapazes se consolam dos seus desgostos. Conheço essa história. Aí pelos vinte anos, quando eu não sabia bem onde estava a porta da rua nem para onde levava, também compus versos de moço.''',
-      
+
       '''Capítulo 2 - Do livro
 
 Agora que expliquei o título, passo a escrever o livro. Antes disso, porém, digamos os motivos que me põem a pena na mão.
 
 Vivo só, com um criado. A casa em que moro é própria; fi-la construir de propósito, levado de um desejo tão particular que me vexa imprimi-lo, mas vá lá. Um dia, há bastantes anos, lembrou-me reproduzir no Engenho Novo a casa em que me criei na antiga Rua de Mata-cavalos, dando-lhe o mesmo aspecto e economia daquela outra, que desapareceu.''',
-      
+
       '''Capítulo 3 - A denúncia
 
 A minha mãe era amiga íntima da mãe de Capitu. Foram criadas juntas, brincaram juntas, até se casarem. Casaram ambas cedo; minha mãe saiu da casa materna para a de meu pai, Capitu saiu da sua para uma casa ao pé. Pequena, baixa, com uma janela e duas portas. Quem passou pela antiga Rua de Mata-cavalos, indo para o Andaraí, havia de ver a casa. Não era feia, tinha uma aparência acolhedora; mas comparada com a nossa, fazia lembrar uma dessas pessoas que, sem serem propriamente feias, são mais simpáticas que bonitas.''',
@@ -91,13 +88,13 @@ Quando eu tinha seis anos vi uma vez uma figura magnífica num livro sobre a Flo
 Dizia o livro: "As jiboias engolem a presa inteira, sem mastigar. Em seguida não conseguem mover-se e dormem os seis meses da digestão."
 
 Refleti muito então sobre as aventuras da selva e consegui, por minha vez, traçar com lápis de cor o meu primeiro desenho. O meu desenho número 1 era assim...''',
-      
+
       '''Capítulo 2
 
 Vivi assim sozinho, sem ninguém com quem pudesse falar verdadeiramente, até uma pane no deserto do Saara, há seis anos. Qualquer coisa se partira no meu motor. E como não tinha comigo nem mecânico nem passageiros, preparei-me para tentar, sozinho, um conserto difícil. Era para mim questão de vida ou morte. Tinha água apenas para oito dias.
 
 Na primeira noite dormi sobre a areia a mil milhas de qualquer terra habitada. Estava mais isolado que um náufrago numa jangada em pleno oceano.''',
-      
+
       '''Capítulo 3
 
 Foi então que apareceu o pequeno príncipe.
@@ -113,13 +110,13 @@ Quando um mistério é muito impressionante, ninguém ousa desobedecer. Por mais
 Este é um livro educacional que apresenta conceitos fundamentais de forma clara e acessível. Os capítulos estão organizados de maneira progressiva, permitindo um aprendizado gradual e consistente.
 
 O conteúdo foi cuidadosamente elaborado para atender às necessidades dos estudantes modernos, combinando teoria sólida com exemplos práticos e exercícios interativos.''',
-      
+
       '''Capítulo 1 - Introdução
 
 Neste primeiro capítulo, estabelecemos as bases conceituais que serão desenvolvidas ao longo do livro. É importante compreender que cada conceito se constrói sobre os anteriores, formando uma estrutura coesa de conhecimento.
 
 Os exemplos apresentados foram selecionados para ilustrar situações do cotidiano, facilitando a compreensão e aplicação prática dos conceitos estudados.''',
-      
+
       '''Capítulo 2 - Desenvolvimento
 
 Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceitos introduzidos anteriormente. Aqui, exploramos as nuances e aplicações mais complexas, sempre mantendo o foco na clareza e na aplicabilidade prática.
@@ -142,7 +139,7 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
     setState(() {
       _showControls = !_showControls;
     });
-    
+
     if (_showControls) {
       _hideControlsAfterDelay();
     }
@@ -185,8 +182,11 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
   }
 
   Future<void> _downloadBook(BuildContext context) async {
-    final downloadProvider = Provider.of<BookDownloadProvider>(context, listen: false);
-    
+    final downloadProvider = Provider.of<BookDownloadProvider>(
+      context,
+      listen: false,
+    );
+
     // Se já está baixado, mostra mensagem
     if (downloadProvider.isBookDownloaded(widget.book.id)) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -198,10 +198,10 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
       );
       return;
     }
-    
+
     // Inicia o download
     final result = await downloadProvider.downloadBook(widget.book);
-    
+
     if (result) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -221,8 +221,10 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
     }
   }
 
-  Color get _backgroundColor => _isDarkMode ? AppColors.background : const Color(0xFFF5F5F5);
-  Color get _textColor => _isDarkMode ? AppColors.textPrimary : const Color(0xFF1A1A1A);
+  Color get _backgroundColor =>
+      _isDarkMode ? AppColors.background : const Color(0xFFF5F5F5);
+  Color get _textColor =>
+      _isDarkMode ? AppColors.textPrimary : const Color(0xFF1A1A1A);
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +253,6 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 40), // Space for top controls
-                          
                           // Chapter content
                           Text(
                             _bookContent[index],
@@ -263,8 +264,10 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                             ),
                             textAlign: TextAlign.justify,
                           ),
-                          
-                          const SizedBox(height: 80), // Space for bottom controls
+
+                          const SizedBox(
+                            height: 80,
+                          ), // Space for bottom controls
                         ],
                       ),
                     ),
@@ -272,7 +275,7 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                 },
               ),
             ),
-            
+
             // Controls overlay
             if (_showControls) ...[
               // Top controls
@@ -312,7 +315,8 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                                 overflow: TextOverflow.ellipsis,
                               ),
                               CustomTypography.caption(
-                                text: 'Página ${_currentPage + 1} de ${_bookContent.length}',
+                                text:
+                                    'Página ${_currentPage + 1} de ${_bookContent.length}',
                                 color: _textColor.withValues(alpha: 0.7),
                               ),
                             ],
@@ -327,7 +331,7 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                   ),
                 ),
               ),
-              
+
               // Bottom controls
               Positioned(
                 bottom: 0,
@@ -352,23 +356,28 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                         IconButton(
                           icon: Icon(
                             Icons.arrow_back_ios,
-                            color: _currentPage > 0 ? _textColor : _textColor.withValues(alpha: 0.3),
+                            color: _currentPage > 0
+                                ? _textColor
+                                : _textColor.withValues(alpha: 0.3),
                           ),
                           onPressed: _currentPage > 0 ? _previousPage : null,
                         ),
-                        
+
                         // Progress indicator
                         Expanded(
                           child: Container(
                             height: 4,
-                            margin: const EdgeInsets.symmetric(horizontal: AppDimensions.lg),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: AppDimensions.lg,
+                            ),
                             decoration: BoxDecoration(
                               color: _textColor.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(2),
                             ),
                             child: FractionallySizedBox(
                               alignment: Alignment.centerLeft,
-                              widthFactor: (_currentPage + 1) / _bookContent.length,
+                              widthFactor:
+                                  (_currentPage + 1) / _bookContent.length,
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.primary,
@@ -378,15 +387,17 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                             ),
                           ),
                         ),
-                        
+
                         IconButton(
                           icon: Icon(
                             Icons.arrow_forward_ios,
-                            color: _currentPage < _bookContent.length - 1 
-                                ? _textColor 
+                            color: _currentPage < _bookContent.length - 1
+                                ? _textColor
                                 : _textColor.withValues(alpha: 0.3),
                           ),
-                          onPressed: _currentPage < _bookContent.length - 1 ? _nextPage : null,
+                          onPressed: _currentPage < _bookContent.length - 1
+                              ? _nextPage
+                              : null,
                         ),
                       ],
                     ),
@@ -421,7 +432,10 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.remove, color: AppColors.textSecondary),
+                  icon: const Icon(
+                    Icons.remove,
+                    color: AppColors.textSecondary,
+                  ),
                   onPressed: () => _adjustFontSize(-2),
                 ),
                 CustomTypography.bodyMedium(
@@ -434,9 +448,9 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                 ),
               ],
             ),
-            
+
             const SizedBox(height: AppDimensions.md),
-            
+
             // Dark mode toggle
             Row(
               children: [
@@ -455,25 +469,29 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                 ),
               ],
             ),
-            
+
             const SizedBox(height: AppDimensions.md),
-            
+
             // Download PDF button
             Consumer<BookDownloadProvider>(
               builder: (context, downloadProvider, child) {
-                final isDownloaded = downloadProvider.isBookDownloaded(widget.book.id);
-                final downloadProgress = downloadProvider.getDownloadProgress(widget.book.id);
-                
+                final isDownloaded = downloadProvider.isBookDownloaded(
+                  widget.book.id,
+                );
+                final downloadProgress = downloadProvider.getDownloadProgress(
+                  widget.book.id,
+                );
+
                 return ElevatedButton(
-                  onPressed: downloadProgress != null 
-                      ? null 
+                  onPressed: downloadProgress != null
+                      ? null
                       : () {
                           Navigator.of(context).pop();
                           _downloadBook(context);
                         },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isDownloaded 
-                        ? AppColors.success 
+                    backgroundColor: isDownloaded
+                        ? AppColors.success
                         : AppColors.secondary,
                     foregroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(
@@ -481,7 +499,9 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                       vertical: AppDimensions.sm,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusSm,
+                      ),
                     ),
                     elevation: 0,
                   ),
@@ -500,7 +520,8 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                             ),
                             const SizedBox(width: AppDimensions.sm),
                             CustomTypography.bodyMedium(
-                              text: 'Baixando... ${(downloadProgress * 100).toInt()}%',
+                              text:
+                                  'Baixando... ${(downloadProgress * 100).toInt()}%',
                               color: Colors.black,
                             ),
                           ],
@@ -509,7 +530,9 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              isDownloaded ? Icons.download_done : Icons.download,
+                              isDownloaded
+                                  ? Icons.download_done
+                                  : Icons.download,
                               size: 18,
                               color: Colors.black,
                             ),
