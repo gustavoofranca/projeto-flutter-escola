@@ -1,15 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import '../models/book_model.dart';
 
 /// Serviço para download e gerenciamento de PDFs de livros
 class BookDownloadService {
   static const String _downloadPath = 'downloads/books';
   static final Map<String, double> _downloadProgress = {};
-  static final List<String> _downloadedBooks = [];
+  static final Set<String> _downloadedBooks = <String>{};
 
-  /// Simula o download de um PDF do livro
+  /// Realiza o download de um PDF do livro
   Future<bool> downloadBookPDF(BookModel book, {
     Function(double)? onProgress,
     Function(String)? onError,
@@ -17,23 +19,54 @@ class BookDownloadService {
     try {
       final bookId = book.id;
       
-      // Simula processo de download com progresso
-      for (int i = 0; i <= 100; i += 5) {
-        await Future.delayed(const Duration(milliseconds: 100));
-        _downloadProgress[bookId] = i / 100.0;
-        onProgress?.call(i / 100.0);
+      // Verifica se já foi baixado
+      if (isBookDownloaded(bookId)) {
+        return true;
       }
       
-      // Simula a criação do arquivo PDF
-      await _createBookPDF(book);
-      
-      // Marca como baixado
-      if (!_downloadedBooks.contains(bookId)) {
-        _downloadedBooks.add(bookId);
+      // Verifica se há um link de preview disponível
+      if (book.previewLink == null) {
+        onError?.call('Livro não possui prévia disponível para download');
+        return false;
       }
       
-      _downloadProgress.remove(bookId);
-      return true;
+      // Marca início do download
+      _downloadProgress[bookId] = 0.0;
+      onProgress?.call(0.0);
+      
+      // Faz o download do PDF
+      final Uri uri = Uri.parse(book.previewLink!);
+      final http.Response response = await http.get(uri).timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          throw Exception('Tempo limite excedido ao baixar o livro');
+        },
+      );
+      
+      if (response.statusCode == 200) {
+        // Atualiza progresso
+        _downloadProgress[bookId] = 0.5;
+        onProgress?.call(0.5);
+        
+        // Salva o arquivo
+        final result = await _savePdfFile(bookId, response.bodyBytes);
+        
+        if (result) {
+          // Marca como baixado
+          _downloadedBooks.add(bookId);
+          _downloadProgress.remove(bookId);
+          onProgress?.call(1.0);
+          return true;
+        } else {
+          onError?.call('Falha ao salvar o arquivo PDF');
+          _downloadProgress.remove(bookId);
+          return false;
+        }
+      } else {
+        onError?.call('Falha ao baixar o livro. Código de status: ${response.statusCode}');
+        _downloadProgress.remove(bookId);
+        return false;
+      }
     } catch (e) {
       onError?.call('Erro ao baixar o livro: $e');
       _downloadProgress.remove(book.id);
@@ -41,15 +74,26 @@ class BookDownloadService {
     }
   }
 
-  /// Simula a criação de um arquivo PDF do livro
-  Future<void> _createBookPDF(BookModel book) async {
-    // Em uma implementação real, aqui você:
-    // 1. Faria requisição para obter o PDF da Google Books API
-    // 2. Ou converteria o conteúdo de texto em PDF
-    // 3. Salvaria no diretório de downloads do dispositivo
-    
-    // Por agora, simula a criação do arquivo
-    await Future.delayed(const Duration(milliseconds: 500));
+  /// Salva o arquivo PDF no dispositivo
+  Future<bool> _savePdfFile(String bookId, Uint8List pdfData) async {
+    try {
+      // Obtém o diretório de documentos
+      final directory = await getApplicationDocumentsDirectory();
+      final downloadDir = Directory('${directory.path}/$_downloadPath');
+      
+      // Cria o diretório se não existir
+      if (!await downloadDir.exists()) {
+        await downloadDir.create(recursive: true);
+      }
+      
+      // Cria o arquivo
+      final file = File('${downloadDir.path}/$bookId.pdf');
+      await file.writeAsBytes(pdfData);
+      
+      return await file.exists();
+    } catch (e) {
+      return false;
+    }
   }
 
   /// Verifica se um livro foi baixado
@@ -63,14 +107,22 @@ class BookDownloadService {
   }
 
   /// Lista todos os livros baixados
-  List<String> getDownloadedBooks() {
-    return List.from(_downloadedBooks);
+  Set<String> getDownloadedBooks() {
+    return Set.from(_downloadedBooks);
   }
 
   /// Remove um livro baixado
   Future<bool> removeDownloadedBook(String bookId) async {
     try {
-      // Em uma implementação real, deletaria o arquivo PDF
+      // Remove o arquivo PDF
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$_downloadPath/$bookId.pdf');
+      
+      if (await file.exists()) {
+        await file.delete();
+      }
+      
+      // Remove do conjunto de livros baixados
       _downloadedBooks.remove(bookId);
       return true;
     } catch (e) {
@@ -93,23 +145,64 @@ class BookDownloadService {
   }
 
   /// Obtém o caminho do arquivo PDF baixado
-  String? getBookPDFPath(String bookId) {
+  Future<String?> getBookPDFPath(String bookId) async {
     if (!isBookDownloaded(bookId)) return null;
-    return '$_downloadPath/$bookId.pdf';
+    
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/$_downloadPath/$bookId.pdf';
+    final file = File(filePath);
+    
+    if (await file.exists()) {
+      return filePath;
+    }
+    
+    return null;
   }
 
   /// Limpa todos os downloads
   Future<void> clearAllDownloads() async {
+    // Deleta todos os arquivos
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final downloadDir = Directory('${directory.path}/$_downloadPath');
+      
+      if (await downloadDir.exists()) {
+        await downloadDir.delete(recursive: true);
+      }
+    } catch (e) {
+      // Ignora erros na deleção
+    }
+    
     _downloadedBooks.clear();
     _downloadProgress.clear();
   }
 
   /// Obtém estatísticas de download
-  Map<String, dynamic> getDownloadStats() {
+  Future<Map<String, dynamic>> getDownloadStats() async {
+    double totalSizeMB = 0.0;
+    
+    // Calcula o tamanho total dos arquivos
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final downloadDir = Directory('${directory.path}/$_downloadPath');
+      
+      if (await downloadDir.exists()) {
+        await for (final file in downloadDir.list(recursive: true)) {
+          if (file is File && file.path.endsWith('.pdf')) {
+            final length = await file.length();
+            totalSizeMB += length / (1024 * 1024); // Converte para MB
+          }
+        }
+      }
+    } catch (e) {
+      // Usa estimativa se não conseguir calcular
+      totalSizeMB = _downloadedBooks.length * 15.5;
+    }
+    
     return {
       'totalDownloaded': _downloadedBooks.length,
       'currentDownloads': _downloadProgress.length,
-      'totalSizeMB': _downloadedBooks.length * 15.5, // Estimativa
+      'totalSizeMB': totalSizeMB,
     };
   }
 }

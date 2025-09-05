@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_dimensions.dart';
 import '../../models/book_model.dart';
@@ -473,26 +474,70 @@ class BookDetailsScreen extends StatelessWidget {
     }
   }
 
-  void _openPreview(BuildContext context) {
-    // Aqui você pode integrar com um WebView ou browser
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Abrindo prévia do livro...'),
-        backgroundColor: AppColors.info,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+  void _openPreview(BuildContext context) async {
+    if (book.previewLink != null) {
+      final Uri url = Uri.parse(book.previewLink!);
+      if (await launchUrl(url)) {
+        // URL aberta com sucesso
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Prévia do livro aberta!'),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      } else {
+        // Falha ao abrir URL
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Não foi possível abrir a prévia do livro'),
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Livro não possui prévia disponível'),
+          backgroundColor: AppColors.warning,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
-  void _openInfoLink(BuildContext context) {
-    // Aqui você pode integrar com um WebView ou browser
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Abrindo informações do livro...'),
-        backgroundColor: AppColors.info,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+  void _openInfoLink(BuildContext context) async {
+    if (book.infoLink != null) {
+      final Uri url = Uri.parse(book.infoLink!);
+      if (await launchUrl(url)) {
+        // URL aberta com sucesso
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Informações do livro abertas!'),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      } else {
+        // Falha ao abrir URL
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Não foi possível abrir as informações do livro'),
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Livro não possui link de informações'),
+          backgroundColor: AppColors.warning,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   void _copyIsbn(BuildContext context) {

@@ -75,8 +75,8 @@ class BookDownloadProvider extends ChangeNotifier {
   }
   
   /// Obtém o caminho do PDF baixado
-  String? getBookPDFPath(String bookId) {
-    return _downloadService.getBookPDFPath(bookId);
+  Future<String?> getBookPDFPath(String bookId) async {
+    return await _downloadService.getBookPDFPath(bookId);
   }
   
   /// Obtém o tamanho estimado do arquivo
