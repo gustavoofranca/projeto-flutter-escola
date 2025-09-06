@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
 
 class MessagesTab extends StatelessWidget {
   const MessagesTab({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
 import '../atoms/custom_typography.dart';
 
 /// Widget para títulos de seção

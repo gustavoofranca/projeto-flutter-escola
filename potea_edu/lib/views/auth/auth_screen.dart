@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_text_styles.dart';
-import '../../constants/app_dimensions.dart';
-import 'login_screen.dart';
-import 'signup_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
+import '../../models/user_model.dart';
+import '../../providers/auth_provider.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

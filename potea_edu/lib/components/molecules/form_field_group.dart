@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
-import '../../constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
 import '../atoms/custom_text_field.dart';
 import '../atoms/custom_typography.dart';
 

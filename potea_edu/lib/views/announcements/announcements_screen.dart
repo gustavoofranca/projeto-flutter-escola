@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
-import '../../providers/announcement_provider.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
+import '../../providers/auth_provider.dart';
+import '../../services/announcement_service.dart';
 import '../../models/announcement_model.dart';
 import '../../components/atoms/custom_typography.dart';
-import 'create_announcement_screen.dart';
+import '../../components/molecules/info_card.dart';
 
 /// Tela de avisos/anúncios
 class AnnouncementsScreen extends StatefulWidget {

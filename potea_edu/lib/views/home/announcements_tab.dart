@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_text_styles.dart';
-import '../../constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/announcement_provider.dart';
 import '../../models/announcement_model.dart';

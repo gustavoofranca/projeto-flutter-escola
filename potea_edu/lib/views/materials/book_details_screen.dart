@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
 import '../../providers/book_download_provider.dart';
 import '../../services/book_download_service.dart';
+import '../../models/book_model.dart';
+import '../../components/atoms/custom_button.dart';
 import '../../components/atoms/custom_typography.dart';
 import '../../components/molecules/info_card.dart';
+import '../../components/molecules/section_title.dart';
 import 'book_reader_screen.dart';
 
 /// Tela de detalhes do livro com informações completas

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
-import '../../providers/book_download_provider.dart';
-import '../../services/book_download_service.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
+import '../../models/book_model.dart';
 import '../../components/atoms/custom_typography.dart';
 
 /// Tela de leitura de livros com funcionalidades básicas de leitor
@@ -22,7 +20,6 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
 
   int _currentPage = 0;
   double _fontSize = 16.0;
-  double _brightness = 1.0;
   bool _isDarkMode = true;
   bool _showControls = true;
 
@@ -178,17 +175,6 @@ Avançando em nossa jornada de aprendizado, este capítulo aprofunda os conceito
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
-  }
-
-  Future<void> _downloadBook(BuildContext context) async {
-    // Funcionalidade de download removida
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Funcionalidade de download removida. Use o botão "Acessar Livro" para ler o conteúdo.'),
-        backgroundColor: AppColors.warning,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
   }
 
   Color get _backgroundColor =>

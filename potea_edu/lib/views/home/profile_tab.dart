@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_text_styles.dart';
-import '../../constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/user_model.dart';
+import '../../services/user_service.dart';
 import '../../components/atoms/custom_typography.dart';
+import '../../components/atoms/custom_button.dart';
 import '../../components/molecules/info_card.dart';
+import '../../components/molecules/section_title.dart';
 import '../profile/edit_profile_screen.dart';
 
 class ProfileTab extends StatefulWidget {

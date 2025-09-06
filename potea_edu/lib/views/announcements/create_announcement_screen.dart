@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
 import '../../providers/announcement_provider.dart';
+import '../../providers/auth_provider.dart';
 import '../../models/announcement_model.dart';
 import '../../components/atoms/custom_typography.dart';
 import '../../components/atoms/custom_button.dart';
@@ -145,18 +146,9 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
         children: [
           CustomTextField(
             controller: _titleController,
-            decoration: InputDecoration(
-              labelText: 'Título do Aviso',
-              hintText: 'Ex: Prova de Matemática',
-              prefixIcon: const Icon(Icons.title, color: AppColors.primary),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
-                borderSide: const BorderSide(color: AppColors.primary),
-              ),
-            ),
+            label: 'Título do Aviso',
+            hint: 'Ex: Prova de Matemática',
+            prefixIcon: Icons.title,
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Título é obrigatório';
@@ -172,19 +164,10 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
           
           CustomTextField(
             controller: _contentController,
+            label: 'Conteúdo do Aviso',
+            hint: 'Descreva os detalhes do aviso...',
+            prefixIcon: Icons.description,
             maxLines: 6,
-            decoration: InputDecoration(
-              labelText: 'Conteúdo do Aviso',
-              hintText: 'Descreva os detalhes do aviso...',
-              prefixIcon: const Icon(Icons.description, color: AppColors.primary),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
-                borderSide: const BorderSide(color: AppColors.primary),
-              ),
-            ),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Conteúdo é obrigatório';

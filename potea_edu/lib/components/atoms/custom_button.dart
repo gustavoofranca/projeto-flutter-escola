@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
-import '../../constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
 
 /// Botão personalizado com microinterações e acessibilidade
 class CustomButton extends StatefulWidget {

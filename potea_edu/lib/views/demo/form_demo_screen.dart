@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/app_dimensions.dart';
+import 'package:potea_edu/constants/app_colors.dart';
+import 'package:potea_edu/constants/app_dimensions.dart';
 import '../../components/atoms/custom_button.dart';
 import '../../components/atoms/custom_text_field.dart';
 import '../../components/atoms/custom_typography.dart';
 import '../../components/molecules/form_field_group.dart';
+import '../../components/molecules/section_title.dart';
 import '../../providers/auth_provider.dart';
 
 /// Tela de demonstração de formulários com validação

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_text_styles.dart';
+import 'package:potea_edu/constants/app_text_styles.dart';
 
 /// Componente de tipografia personalizada com acessibilidade
 class CustomTypography extends StatelessWidget {
