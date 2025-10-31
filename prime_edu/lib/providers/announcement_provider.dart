@@ -92,7 +92,7 @@ class AnnouncementProvider extends ChangeNotifier {
         classId: '3A_2024',
         className: '3º Ano A',
         priority: AnnouncementPriority.high,
-        type: AnnouncementType.exam,
+        type: AnnouncementType.prova,
         createdAt: DateTime.now().subtract(const Duration(hours: 2)),
         attachmentUrls: ['https://example.com/formula-sheet.pdf'],
       ),
@@ -106,7 +106,7 @@ class AnnouncementProvider extends ChangeNotifier {
         classId: null, // All classes
         className: 'Todas as turmas',
         priority: AnnouncementPriority.medium,
-        type: AnnouncementType.event,
+        type: AnnouncementType.evento,
         createdAt: DateTime.now().subtract(const Duration(days: 1)),
       ),
       AnnouncementModel(
@@ -119,7 +119,7 @@ class AnnouncementProvider extends ChangeNotifier {
         classId: '3A_2024',
         className: '3º Ano A',
         priority: AnnouncementPriority.medium,
-        type: AnnouncementType.homework,
+        type: AnnouncementType.tarefa,
         createdAt: DateTime.now().subtract(const Duration(days: 2)),
         expiresAt: DateTime.now().add(const Duration(days: 5)),
       ),
@@ -133,7 +133,7 @@ class AnnouncementProvider extends ChangeNotifier {
         classId: '3A_2024',
         className: '3º Ano A',
         priority: AnnouncementPriority.urgent,
-        type: AnnouncementType.urgent,
+        type: AnnouncementType.urgente,
         createdAt: DateTime.now().subtract(const Duration(hours: 6)),
       ),
       AnnouncementModel(
@@ -146,7 +146,7 @@ class AnnouncementProvider extends ChangeNotifier {
         classId: null,
         className: 'Todas as turmas',
         priority: AnnouncementPriority.low,
-        type: AnnouncementType.event,
+        type: AnnouncementType.evento,
         createdAt: DateTime.now().subtract(const Duration(days: 3)),
         expiresAt: DateTime.now().add(const Duration(days: 120)),
       ),
@@ -160,7 +160,7 @@ class AnnouncementProvider extends ChangeNotifier {
         classId: '3A_2024',
         className: '3º Ano A',
         priority: AnnouncementPriority.medium,
-        type: AnnouncementType.reminder,
+        type: AnnouncementType.lembrete,
         createdAt: DateTime.now().subtract(const Duration(hours: 12)),
       ),
     ]);

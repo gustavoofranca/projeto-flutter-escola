@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:prime_edu/constants/app_colors.dart';
 import 'package:prime_edu/constants/app_dimensions.dart';
 import '../../providers/auth_provider.dart';
-import '../../services/user_service.dart';
 import '../../models/user_model.dart';
 import '../../components/atoms/custom_button.dart';
 import '../../components/atoms/custom_typography.dart';
@@ -24,8 +23,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   bool _isLoading = false;
   bool _hasChanges = false;
-
-  final UserService _userService = UserService();
 
   @override
   void initState() {

@@ -829,30 +829,3 @@ class _CalendarTabState extends State<CalendarTab> {
     }
   }
 }
-
-// Data Models
-class EventModel {
-  final String id;
-  final String title;
-  final String description;
-  final DateTime date;
-  final TimeOfDay startTime;
-  final TimeOfDay endTime;
-  final EventType type;
-  final String location;
-  final bool isAllDay;
-
-  EventModel({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.date,
-    required this.startTime,
-    required this.endTime,
-    required this.type,
-    required this.location,
-    required this.isAllDay,
-  });
-}
-
-enum EventType { exam, meeting, holiday, fieldTrip, presentation, other }

@@ -25,7 +25,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
 
-  AnnouncementType _selectedType = AnnouncementType.general;
+  AnnouncementType _selectedType = AnnouncementType.geral;
   AnnouncementPriority _selectedPriority = AnnouncementPriority.medium;
   String? _selectedClass;
   DateTime? _expiresAt;
@@ -360,17 +360,17 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
 
   IconData _getTypeIcon(AnnouncementType type) {
     switch (type) {
-      case AnnouncementType.general:
+      case AnnouncementType.geral:
         return Icons.announcement;
-      case AnnouncementType.homework:
+      case AnnouncementType.tarefa:
         return Icons.assignment;
-      case AnnouncementType.exam:
+      case AnnouncementType.prova:
         return Icons.quiz;
-      case AnnouncementType.event:
+      case AnnouncementType.evento:
         return Icons.event;
-      case AnnouncementType.reminder:
+      case AnnouncementType.lembrete:
         return Icons.access_time;
-      case AnnouncementType.urgent:
+      case AnnouncementType.urgente:
         return Icons.priority_high;
     }
   }

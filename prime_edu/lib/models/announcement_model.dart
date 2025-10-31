@@ -110,7 +110,7 @@ class AnnouncementModel {
       ),
       type: AnnouncementType.values.firstWhere(
         (e) => e.name == map['type'],
-        orElse: () => AnnouncementType.general,
+        orElse: () => AnnouncementType.geral,
       ),
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : null,
@@ -165,17 +165,17 @@ class AnnouncementModel {
   /// Obtém o ícone baseado no tipo
   IconData get typeIcon {
     switch (type) {
-      case AnnouncementType.general:
+      case AnnouncementType.geral:
         return Icons.announcement;
-      case AnnouncementType.homework:
+      case AnnouncementType.tarefa:
         return Icons.assignment;
-      case AnnouncementType.exam:
+      case AnnouncementType.prova:
         return Icons.quiz;
-      case AnnouncementType.event:
+      case AnnouncementType.evento:
         return Icons.event;
-      case AnnouncementType.reminder:
+      case AnnouncementType.lembrete:
         return Icons.access_time;
-      case AnnouncementType.urgent:
+      case AnnouncementType.urgente:
         return Icons.priority_high;
     }
   }
@@ -207,12 +207,12 @@ enum AnnouncementPriority {
 
 /// Tipo do anúncio
 enum AnnouncementType {
-  general,
-  homework,
-  exam,
-  event,
-  reminder,
-  urgent,
+  geral,
+  tarefa,
+  prova,
+  evento,
+  lembrete,
+  urgente,
 }
 
 /// Extensões para facilitar o uso
@@ -234,17 +234,17 @@ extension AnnouncementPriorityExtension on AnnouncementPriority {
 extension AnnouncementTypeExtension on AnnouncementType {
   String get displayName {
     switch (this) {
-      case AnnouncementType.general:
+      case AnnouncementType.geral:
         return 'Geral';
-      case AnnouncementType.homework:
+      case AnnouncementType.tarefa:
         return 'Tarefa';
-      case AnnouncementType.exam:
+      case AnnouncementType.prova:
         return 'Prova';
-      case AnnouncementType.event:
+      case AnnouncementType.evento:
         return 'Evento';
-      case AnnouncementType.reminder:
+      case AnnouncementType.lembrete:
         return 'Lembrete';
-      case AnnouncementType.urgent:
+      case AnnouncementType.urgente:
         return 'Urgente';
     }
   }

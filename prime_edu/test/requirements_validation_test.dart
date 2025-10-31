@@ -177,14 +177,14 @@ void main() {
           teacherId: '2',
           teacherName: 'Teacher',
           priority: AnnouncementPriority.medium,
-          type: AnnouncementType.general,
+          type: AnnouncementType.geral,
           createdAt: DateTime.now(),
         );
 
         expect(announcement.id, equals('1'));
         expect(announcement.title, equals('Test'));
         expect(announcement.priority, equals(AnnouncementPriority.medium));
-        expect(announcement.type, equals(AnnouncementType.general));
+        expect(announcement.type, equals(AnnouncementType.geral));
         expect(announcement.priorityColor, isA<Color>());
         expect(announcement.typeIcon, isA<IconData>());
       });

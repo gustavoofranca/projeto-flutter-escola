@@ -250,27 +250,27 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen>
           _buildFilterButton(
             'Geral',
             Icons.announcement,
-            () => _filterByType(AnnouncementType.general),
+            () => _filterByType(AnnouncementType.geral),
           ),
           _buildFilterButton(
             'Tarefas',
             Icons.assignment,
-            () => _filterByType(AnnouncementType.homework),
+            () => _filterByType(AnnouncementType.tarefa),
           ),
           _buildFilterButton(
             'Provas',
             Icons.quiz,
-            () => _filterByType(AnnouncementType.exam),
+            () => _filterByType(AnnouncementType.prova),
           ),
           _buildFilterButton(
             'Eventos',
             Icons.event,
-            () => _filterByType(AnnouncementType.event),
+            () => _filterByType(AnnouncementType.evento),
           ),
           _buildFilterButton(
             'Lembretes',
             Icons.access_time,
-            () => _filterByType(AnnouncementType.reminder),
+            () => _filterByType(AnnouncementType.lembrete),
           ),
 
           const SizedBox(height: AppDimensions.xl),
@@ -329,20 +329,7 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen>
     final canEdit = _canCreateOrEdit(user, announcement);
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.md),
-      child: InkWell(
-        onTap: canEdit
-            ? () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CreateAnnouncementScreen(
-                      editingAnnouncement: announcement,
-                    ),
-                  ),
-                );
-                await _loadAnnouncements();
-              }
-            : null,
+      child: Container(
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
@@ -357,99 +344,107 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen>
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppDimensions.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              Row(
-                children: [
-                  Icon(
-                    announcement.typeIcon,
-                    color: announcement.priorityColor,
-                    size: AppDimensions.iconSizeMd,
-                  ),
-                  const SizedBox(width: AppDimensions.sm),
-                  Expanded(
-                    child: CustomTypography.h6(
-                      text: announcement.title,
-                      color: AppColors.textPrimary,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimensions.sm,
-                      vertical: AppDimensions.xs,
-                    ),
-                    decoration: BoxDecoration(
-                      color: announcement.priorityColor.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusSm,
+        child: InkWell(
+          onTap: canEdit
+              ? () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CreateAnnouncementScreen(
+                        editingAnnouncement: announcement,
                       ),
                     ),
-                    child: CustomTypography.caption(
-                      text: announcement.priority.displayName,
-                      color: announcement.priorityColor,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: AppDimensions.md),
-
-              // Content
-              CustomTypography.bodyMedium(
-                text: announcement.content,
-                color: AppColors.textPrimary,
-                maxLines: 5,
-                overflow: TextOverflow.ellipsis,
-              ),
-
-              const SizedBox(height: AppDimensions.md),
-
-              // Footer
-              Row(
-                children: [
-                  Icon(
-                    Icons.person,
-                    size: AppDimensions.iconSizeSm,
-                    color: AppColors.textSecondary,
-                  ),
-                  const SizedBox(width: AppDimensions.xs),
-                  Expanded(
-                    child: CustomTypography.caption(
-                      text: announcement.teacherName,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                  CustomTypography.caption(
-                    text: announcement.timeAgo,
-                    color: AppColors.textSecondary,
-                  ),
-                ],
-              ),
-
-              if (announcement.className != null) ...[
-                const SizedBox(height: AppDimensions.xs),
+                  );
+                  await _loadAnnouncements();
+                }
+              : null,
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+          child: Padding(
+            padding: const EdgeInsets.all(AppDimensions.lg),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Row(
                   children: [
                     Icon(
-                      Icons.class_,
+                      announcement.typeIcon,
+                      color: announcement.priorityColor,
+                      size: AppDimensions.iconSizeMd,
+                    ),
+                    const SizedBox(width: AppDimensions.sm),
+                    Expanded(
+                      child: CustomTypography.h6(
+                        text: announcement.title,
+                        color: AppColors.textPrimary,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimensions.sm,
+                        vertical: AppDimensions.xs,
+                      ),
+                      decoration: BoxDecoration(
+                        color: announcement.priorityColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radiusSm,
+                        ),
+                      ),
+                      child: CustomTypography.caption(
+                        text: announcement.priority.displayName,
+                        color: announcement.priorityColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppDimensions.md),
+                CustomTypography.bodyMedium(
+                  text: announcement.content,
+                  color: AppColors.textPrimary,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: AppDimensions.md),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.person,
                       size: AppDimensions.iconSizeSm,
                       color: AppColors.textSecondary,
                     ),
                     const SizedBox(width: AppDimensions.xs),
+                    Expanded(
+                      child: CustomTypography.caption(
+                        text: announcement.teacherName,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                     CustomTypography.caption(
-                      text: announcement.className!,
+                      text: announcement.timeAgo,
                       color: AppColors.textSecondary,
                     ),
                   ],
                 ),
+                if (announcement.className != null) ...[
+                  const SizedBox(height: AppDimensions.xs),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.class_,
+                        size: AppDimensions.iconSizeSm,
+                        color: AppColors.textSecondary,
+                      ),
+                      const SizedBox(width: AppDimensions.xs),
+                      CustomTypography.caption(
+                        text: announcement.className!,
+                        color: AppColors.textSecondary,
+                      ),
+                    ],
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),
