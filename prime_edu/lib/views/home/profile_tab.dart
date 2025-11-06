@@ -4,6 +4,7 @@ import 'package:prime_edu/constants/app_colors.dart';
 import 'package:prime_edu/constants/app_text_styles.dart';
 import 'package:prime_edu/constants/app_dimensions.dart';
 import '../../providers/auth_provider.dart';
+import '../../features/auth/presentation/providers/auth_view_model.dart';
 import '../../models/user_model.dart';
 import '../../services/user_service.dart';
 import '../../components/atoms/custom_typography.dart';
@@ -727,9 +728,9 @@ class _ProfileTabState extends State<ProfileTab> {
             ),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).pop();
-              authProvider.logout();
+              await _performLogout(context);
             },
             child: CustomTypography.bodyMedium(
               text: 'Sair',
@@ -739,6 +740,26 @@ class _ProfileTabState extends State<ProfileTab> {
         ],
       ),
     );
+  }
+
+  Future<void> _performLogout(BuildContext context) async {
+    // Obtém os providers antes de qualquer operação assíncrona
+    final authProvider = context.read<AuthProvider>();
+    final authViewModel = context.read<AuthViewModel>();
+    
+    // Limpa o AuthProvider (sistema legado)
+    await authProvider.logout();
+    
+    // Limpa o AuthViewModel (Clean Architecture)
+    authViewModel.signOut(); // Método síncrono, sem await
+    
+    // Navega para a tela de login e remove todas as rotas anteriores
+    if (context.mounted) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/login',
+        (route) => false,
+      );
+    }
   }
 
   void _showSecurityDialog(BuildContext context) {
