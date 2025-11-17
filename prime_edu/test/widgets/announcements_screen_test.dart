@@ -6,19 +6,28 @@ import 'package:prime_edu/views/announcements/announcements_screen.dart';
 import 'package:prime_edu/services/announcement_service.dart';
 import 'package:prime_edu/models/announcement_model.dart';
 import 'package:prime_edu/models/user_model.dart';
+import 'package:prime_edu/providers/auth_provider.dart';
 import '../mocks/mock_announcement_service.dart';
-import '../mocks/mock_auth_provider.dart';
 
 void main() {
-  // Desabilitando todos os testes de widget temporariamente
-  // devido a dependências de UI e assets faltando
-  return;
+  TestWidgetsFlutterBinding.ensureInitialized();
+  
   late MockAnnouncementService mockAnnouncementService;
-  late MockAuthProvider mockAuthProvider;
+  late AuthProvider authProvider;
 
   setUp(() {
     mockAnnouncementService = MockAnnouncementService();
-    mockAuthProvider = MockAuthProvider();
+    authProvider = AuthProvider();
+    
+    // Define um usuário de teste
+    authProvider.currentUser = UserModel(
+      id: 'test_user_1',
+      name: 'Test User',
+      email: 'test@example.com',
+      userType: UserType.teacher,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
 
     // Configurar o mock para retornar uma lista vazia de anúncios por padrão
     when(() => mockAnnouncementService.getAnnouncements(user: any(named: 'user')))
@@ -32,7 +41,7 @@ void main() {
   Widget createTestWidget(Widget child) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<MockAuthProvider>.value(value: mockAuthProvider),
+        ChangeNotifierProvider<AuthProvider>.value(value: authProvider),
         Provider<AnnouncementService>.value(value: mockAnnouncementService),
       ],
       child: MaterialApp(
@@ -126,13 +135,12 @@ void main() {
   });
 
   testWidgets('AnnouncementsScreen shows create button for teachers', (WidgetTester tester) async {
-    // Configurar o usuário como professor
-    mockAuthProvider.currentUser = UserModel(
-      id: 'teacher_001',
-      name: 'Prof. Teste',
-      email: 'prof@teste.com',
+    // Configurar usuário como professor
+    authProvider.currentUser = UserModel(
+      id: 'teacher_1',
+      name: 'Teacher User',
+      email: 'teacher@example.com',
       userType: UserType.teacher,
-      subjects: ['Matemática'],
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -148,13 +156,12 @@ void main() {
   });
 
   testWidgets('AnnouncementsScreen does not show create button for students', (WidgetTester tester) async {
-    // Configurar o usuário como aluno
-    mockAuthProvider.currentUser = UserModel(
-      id: 'student_001',
-      name: 'Aluno Teste',
-      email: 'aluno@teste.com',
+    // Configurar usuário como estudante
+    authProvider.currentUser = UserModel(
+      id: 'student_1',
+      name: 'Student User',
+      email: 'student@example.com',
       userType: UserType.student,
-      classId: '3A_2024',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
