@@ -11,6 +11,7 @@ import '../../components/atoms/custom_typography.dart';
 import '../../components/atoms/custom_button.dart';
 import '../../components/molecules/section_title.dart';
 import '../profile/edit_profile_screen.dart';
+import '../demo/advanced_features_demo.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -389,6 +390,20 @@ class _ProfileTabState extends State<ProfileTab> {
               _showComingSoon(context);
             },
           ),
+          _buildMenuItem(
+            icon: Icons.science,
+            title: 'Recursos Avançados',
+            subtitle: 'Notificações, biometria e deep linking',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AdvancedFeaturesDemo(),
+                ),
+              );
+            },
+            iconColor: AppColors.secondary,
+          ),
         ]),
       ],
     );
@@ -554,7 +569,10 @@ class _ProfileTabState extends State<ProfileTab> {
     required String title,
     required String subtitle,
     required VoidCallback onTap,
+    Color? iconColor,
   }) {
+    final effectiveIconColor = iconColor ?? AppColors.textSecondary;
+    
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -567,12 +585,12 @@ class _ProfileTabState extends State<ProfileTab> {
               Container(
                 padding: const EdgeInsets.all(AppDimensions.sm),
                 decoration: BoxDecoration(
-                  color: AppColors.textSecondary.withValues(alpha: 0.1),
+                  color: effectiveIconColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                 ),
                 child: Icon(
                   icon,
-                  color: AppColors.textSecondary,
+                  color: effectiveIconColor,
                   size: AppDimensions.iconSizeMd,
                 ),
               ),
